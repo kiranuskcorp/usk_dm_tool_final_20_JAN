@@ -23,9 +23,6 @@
 		              <thead>
 		                <tr>
 		                  <th> Name</th>
-		                  <!-- <th>Created Date</th>
-		                  <th>Updated Date</th>
-		                   <th>Description</th>-->
 		                   <th data-sort-ignore="true">Action</th>
 		                </tr>
 		              </thead>

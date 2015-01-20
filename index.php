@@ -63,18 +63,25 @@
 
 
 <style type="text/css">
-#navigation {
+.mainHeader{
+height: 180px;
+}
+#nav{
+border : 1px solid black;
+}
+.navigation {
 	width: auto;
 	color: #333;
 	padding: auto;
-	border: 1px solid #ccc;
+	
 }
 
-#navigation li a:visited {
+
+.navigation li a:visited {
 	text-decoration: none
 }
 
-#navigation li a:hover {
+.navigation li a:hover {
 	background: #3498db;
 	position: relative;
 	color: #fff;
@@ -85,9 +92,10 @@
 	content: ' *';
 	display: inline;
 }
-#li{
+.li{
 display:inline;
 text-alig:right;
+list-style: none;
 
 
 }
@@ -96,8 +104,23 @@ text-alig:right;
 	content: "*";
 	color: red;
 }
-</style>
 
+
+.left { 
+float:left; 
+width:50%; 
+clear:left; 
+position:relative;
+bottom:-50px;
+}
+
+.right { 
+float:right; 
+width:50%; 
+clear:right; 
+
+}
+</style>
 </head>
 <body>
 <?php 
@@ -106,18 +129,26 @@ session_start();
 			$username = $_SESSION['username'];
 			if (!empty($username)){
 ?>
-<link rel="shortcut icon" href=".img/favicon.ico" type="image/x-icon" />
-	
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+
+
 
 	<!-- Begin Wrapper -->
 	<div class="container-fluid">
+	
+	<div class="mainHeader">
+<ul class="li">
+<li class= "left"><h1>Data Management Tool</h1></li>
+<li class="right"><img src="./img/logo.gif" align="right"  width="250px" height ="180px"/></li>
+</ul>
+</div>
 		<!-- Begin Header -->
-		<h2>Data Management Tool <img src="./img/logo.gif" align="right" width="100px"></h2>
+	<!-- 	<h2>Data Management Tool <img src="./img/logo.gif" align="right" width="100px"></h2> -->
 		<!-- End Header -->
 		<!-- Begin Naviagtion -->
 		
-		
-	<div id="navigation">
+		<div id="nav"> 
+	<div  class="navigation" >
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<ul class="nav navbar-nav">
@@ -126,6 +157,7 @@ session_start();
 				</div>
 			</nav>
 
+		</div>
 		</div>
 		<div align="right">
 		

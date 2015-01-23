@@ -71,8 +71,6 @@ border : 1px solid black;
 	padding: auto;
 	
 }
-
-
 .navigation li a:visited {
 	text-decoration: none
 }
@@ -82,7 +80,6 @@ border : 1px solid black;
 	position: relative;
 	color: #fff;
 }
-
 .required label:after {
 	color: #e32;
 	content: ' *';
@@ -92,16 +89,12 @@ border : 1px solid black;
 display:inline;
 text-alig:right;
 list-style: none;
-
-
 }
 
 .form-group.required .control-label:after {
 	content: "*";
 	color: red;
 }
-
-
 .left { 
 float:left; 
 width:50%; 

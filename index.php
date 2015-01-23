@@ -56,7 +56,32 @@
                  document.getElementById("deleteRecords").value = main+","+id;      
                  }    
     }
-   
+
+    function validateUser(tablename) {
+    	var name = document.getElementById("name").value;
+    	// alert("Name"+name.length); 
+        if(name.length>=3){
+        	$.ajax({
+        		  url: 'globalValue.php',
+        		  type: 'POST',
+        		  data: name+'name',
+        		  success: function(data) {
+            		  alert(data);
+        			//called when successful
+        			//$('#ajaxphp-results').html(data);
+        		  },
+        		  error: function(e) {
+        			//called when there is an error
+        			//console.log(e.message);
+        		  }
+        		});
+		
+    	   	} 
+    }
+    
+
+
+    
   </script>
 <style type="text/css">
 .mainHeader{

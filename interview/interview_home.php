@@ -24,7 +24,7 @@
 		                  <th>Time</th>
 		                  <th>Status</th>
 		                  <!-- <th>Description</th>
-		                   --><th>Actions</th>
+		                   --><th  data-sort-ignore="true">Actions</th>
 		               </tr>
 		              </thead>
 		              <tbody>

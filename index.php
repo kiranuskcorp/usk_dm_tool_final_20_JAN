@@ -56,12 +56,8 @@
                  document.getElementById("deleteRecords").value = main+","+id;      
                  }    
     }
-    
-
-    
+   
   </script>
-
-
 <style type="text/css">
 .mainHeader{
 height: 180px;

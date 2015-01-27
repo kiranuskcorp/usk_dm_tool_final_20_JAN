@@ -119,7 +119,7 @@ if (! empty ( $_POST )) {
 					<div class="form-group required">
 						<label class="control-label">Name</label>
 						<div class="controls">
-							<input name="name" type="text" placeholder="name"
+							<input name="name" type="text" placeholder="name" onkeyup="validateUser()"
 								value="<?php echo !empty($name)?$name:'';?>" required>
 						</div>
 					</div>

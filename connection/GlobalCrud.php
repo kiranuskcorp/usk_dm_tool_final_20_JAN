@@ -21,9 +21,7 @@ class GlobalCrud {
 		$pdo->setAttribute ( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 		$sql = SqlConstants::$allSelect [$value];
 		$q = $pdo->prepare ( $sql );
-		$q->execute ( array (
-				$id
-		) );
+		$q->execute ( array ($id) );
 		Database::disconnect ();
 	}
 public static function setData($value, $sqlValues) {

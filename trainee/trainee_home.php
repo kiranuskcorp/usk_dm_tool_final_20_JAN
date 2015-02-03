@@ -62,6 +62,10 @@ function myFunction() {
 						if(!empty($row['email'])){
 							$emailTd = '<td> <i class="fa fa-envelope"></i> '. $row['email'] . '</td>';
 						}
+						$batchTd='<td></td>';
+						if(!empty($row['batch_id'])){
+							$batchTd='<td> '.$row['batch_id'].'</td>';						
+						}
 						$phoneTd = '<td></td>';
 						if(!empty($row['phone'])){
 							if(!empty($row['alternate_phone'])){
@@ -76,7 +80,7 @@ function myFunction() {
 						echo $emailTd;
 						echo $phoneTd;
 						echo '<td>'. $row['technology_name'] . '</td>';
-						echo '<td>'. $row['batch_id'] . '</td>';
+						echo $batchTd;
 						echo '<td>'. $row['client_name'] . '</td>';
 						echo '<td>'. $row['skype_id'] . '</td>';
 						echo '<td>'. $row['timezone'] . '</td>';
@@ -98,6 +102,7 @@ function myFunction() {
 
 						  if (isset($_GET['id'])) {
 						    deleteRecord($_GET['id']);
+						    header("Refresh: 0");
 						  }
 						  ?>
 				</tbody>

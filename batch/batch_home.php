@@ -41,6 +41,7 @@
 					$path = $_SERVER['DOCUMENT_ROOT'];
 					$path .= "/layout/connection/GlobalCrud.php";
 					include_once($path);
+					$count=0;
 					$data = GlobalCrud::getData('batchSelect');
 					foreach ($data as $row) {
 						echo '<tr>';
@@ -52,15 +53,13 @@
 						echo '<td>'. $row['time'] . '</td>';
 						echo '<td>'. $row['duration'] . '</td>';
 						echo '<td>'. $row['status'] . '</td>';
-						//	echo '<td>'. $row['created_date'] . '</td>';
-						//	echo '<td>'. $row['updated_date'] . '</td>';
-						//	echo '<td>'. $row['description'] . '</td>';
 						echo '<td>';
 						echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"> <i class="fa fa-caret-square-o-up"></i></a>';
 						echo '<a href="?content=12&id='.$row['id'].'"> <i class="fa fa-pencil-square"></i></a>';
 						echo '<a href="?content=10&id='.$row['id'].'"  onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
 						echo '</td>';
 						echo '</tr>';
+						$count++;
 					}
 
 					function deleteRecord($idValue) {
@@ -74,6 +73,8 @@
 						    deleteRecord($_GET['id']);
 						  }
 						  ?>
+						    <br> Total number of batches:
+					<?php echo $count;?>
 				</tbody>
 			</table>
 			<label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>

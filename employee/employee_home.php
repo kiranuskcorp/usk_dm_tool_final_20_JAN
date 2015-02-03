@@ -32,6 +32,7 @@
 		               $path = $_SERVER['DOCUMENT_ROOT'];
    					   $path .= "/layout/connection/GlobalCrud.php";
    					   include_once($path);
+   					   $count=0;
 					   $data = GlobalCrud::getData('employeeSelect');
 					   foreach ($data as $row) {
 					   	$emailTd = '<td></td>';
@@ -59,6 +60,7 @@
 							   	echo '<a href="?content=13&id='.$row['id'].'"  onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
 							   	echo '</td>';
 							   	echo '</tr>';
+							   	$count++;
 					   }
 
 					   function deleteRecord($idValue) {
@@ -72,6 +74,8 @@
 						    deleteRecord($_GET['id']);
 						  }
 					  ?>
+					    <br> Total number of employees:
+					<?php echo $count;?>
 				      </tbody>
 	            </table>
 	            <label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>

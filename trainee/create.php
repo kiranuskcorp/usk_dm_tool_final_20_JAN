@@ -8,7 +8,6 @@ $dataBatch = GlobalCrud::getData ( 'batchSelect' );
 $constants = explode ( ',', GlobalCrud::getConstants ( "timezoneConstants" ) );
 
 if (! empty ( $_POST )) {
-	//name  email alternatephone clientid skypeid timezone batchid Phone technologyid description
 	// keep track post values
 	$name = $_POST ['name'];
 	$email = $_POST ['email'];
@@ -89,20 +88,29 @@ if (! empty ( $_POST )) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
+function validate(){
+	var clientid =document.getElementById("clientid").value;
+	var technologyid =document.getElementById("technologyid").value;
+	
+	if(clientid==0){
+		
+		document.getElementById("clientidError").innerHTML="Client Is Required";
+		return false;
+	}
+	else if(technologyid==0){
+		
+		document.getElementById("technologyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
 
-  function checkForm(form)
-  {
-  
-    if(!form.name.checked) {
-      alert("Please indicate that you accept the Terms and Conditions");
-      form.name.focus();
-      return false;
-    }
-    return true;
-  }
 
-</script> -->
+}
+</script>
 </head>
 
 <body>
@@ -113,8 +121,8 @@ if (! empty ( $_POST )) {
 				<h3>Create a Trainee</h3>
 			</div>
 
-			<form class="form-horizontal" action="./trainee/create.php"
-				method="post">
+			<form class="form-horizontal" action="./trainee/create.php" 
+				method="post" onsubmit="return validate()">
 				<div class="control-group">
 					<div class="form-group required">
 						<label class="control-label">Name</label>
@@ -140,7 +148,7 @@ if (! empty ( $_POST )) {
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-							<input name="phone" type="tel" maxlength="10" placeholder="phone"
+							<input name="phone" type="tel" min="10" placeholder="phone" 
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>
@@ -150,7 +158,7 @@ if (! empty ( $_POST )) {
 					
 						<label class="control-label">Alternate Phone</label>
 						<div class="controls">
-							<input name="alternatephone" type="tel" maxlength="10"
+							<input name="alternatephone" type="tel" min="10"
 								placeholder="alternate phone"
 								value="<?php echo !empty($alternatephone)?$alternatephone:'';?>"
 								>
@@ -162,15 +170,15 @@ if (! empty ( $_POST )) {
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">Client</label>
-					<div class="controls">
-						<select name="clientid" type="text" required>
+					<div class="controls" id="errorBox">
+						<select name="clientid" id="clientid">
 							<option value="">Select</option>
 							<?php foreach ($dataClient as $row): ?>
 							<option value="<?=$row['id']?>">
 								<?php	echo $row ['name'];?>
 								<?php endforeach ?>
 							</option>
-						</select>
+						</select><span id="clientidError" style="color: red"></span>
 					</div>
 					</div>
 				</div>
@@ -191,7 +199,7 @@ if (! empty ( $_POST )) {
 					<label class="control-label">Timezone</label>
 					<div class="controls">
 						<select name="timezone">
-							<option value="">Select</option>
+							<option value=" ">Select</option>
 							<?php foreach ($constants as $constant): ?>
 							<option value="<?=$constant?>">
 								<?php	echo $constant;?>
@@ -207,8 +215,8 @@ if (! empty ( $_POST )) {
 				<div class="control-group">
 					<label class="control-label">Batch</label>
 					<div class="controls">
-						<select name="batchid" type="text">
-							<option value="">Select</option>
+						<select name="batchid" >
+							<option value="NULL">Select</option>
 							<?php foreach ($dataBatch as $row): ?>
 							<option value="<?=$row['id']?>">
 								<?php	echo $row ['id'];?>
@@ -232,14 +240,14 @@ if (! empty ( $_POST )) {
 				<div class="form-group required">
 					<label class="control-label">Technology</label>
 					<div class="controls">
-						<select name="technologyid" type="text">
+						<select name="technologyid" id=technologyid >
 							<option value="">Select</option>
 							<?php foreach ($dataTechnology as $row): ?>
 							<option value="<?=$row['id']?>">
 								<?php	echo $row ['name'];?>
 								<?php endforeach ?>
 							</option>
-						</select>
+						</select><span id="technologyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

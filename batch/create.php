@@ -68,6 +68,29 @@ if (! empty ( $_POST )) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	
+	var technologyid =document.getElementById("technologyid").value;
+	var trainerid =document.getElementById("trainerid").value;
+
+	 if(technologyid==0){
+		document.getElementById("technologyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	 else if(trainerid==0){
+		 document.getElementById("traineridError").innerHTML="trainer Is Required";
+			return false;
+
+		 }
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
 </head>
 
 <body>
@@ -79,7 +102,7 @@ if (! empty ( $_POST )) {
 			</div>
 
 			<form class="form-horizontal" action="./batch/create.php"
-				method="post">
+				method="post" onsubmit="return validate()">
 
 				<!-- <div class="control-group ">
 					    <label class="control-label">ID</label>
@@ -92,14 +115,14 @@ if (! empty ( $_POST )) {
 					<div class="form-group required">
 						<label class="control-label">Technology Name</label>
 						<div class="controls">
-							<select name="technologyid" type="text">
+							<select name="technologyid" id="technologyid">
 								<option value="0">Select</option>
 								<?php foreach ($dataTechnology as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-							</select>
+							</select><span id="technologyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -115,14 +138,14 @@ if (! empty ( $_POST )) {
 					<div class="form-group required">
 						<label class="control-label">Trainer Name</label>
 						<div class="controls">
-							<select name="trainerid" type="text">
+							<select name="trainerid" id="trainerid">
 								<option value="0">Select</option>
 								<?php foreach ($dataTrainer as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-							</select>
+							</select><span id="traineridError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

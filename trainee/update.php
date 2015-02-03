@@ -128,7 +128,7 @@ else {
 				
 				<div class="control-group ">
 				<div class="form-group required">
-					<label class="control-label">phone</label>
+					<label class="control-label">Phone</label>
 					<div class="controls">
 						 <input name="phone" type="tel" placeholder="phone"
 							maxlength="10" value="<?php echo !empty($phone)?$phone:'';?>"required>
@@ -192,7 +192,7 @@ else {
 					<label class="control-label">Timezone</label>
 					<div class="controls">
 						<select name="timezone" type="text">
-							<option value="0">Select</option>
+							<option value=" ">Select</option>
 							<?php foreach ($constants as $constant): ?>
 							<option <?php if($constant == $timezone) {  ?>
 								selected="selected" value="<?=$constant?>">
@@ -217,7 +217,7 @@ else {
 					<label class="control-label">Batch</label>
 					<div class="controls">
 						<select name="batchid" type="text">
-							<option value="0">Select</option>
+							<option value=" ">Select</option>
 							<?php foreach ($selecteddataBatch as $row): ?>
 							<option <?php if($row['id'] == $batchid) {  ?>
 								selected="selected" value="<?=$row['id']?>">

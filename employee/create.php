@@ -99,11 +99,11 @@ if (! empty ( $_POST )) {
 
 				<div class="control-group">
 				<div class="form-group required">
-					<label class="control-label">phone</label>
+					<label class="control-label">Phone</label>
 					<div class="controls">
 					 <input name="phone" type="tel" maxlength="10"
-							pattern="[0-9]{10}" placeholder="phone"
-							value="<?php echo !empty($phone)?$phone:'';?>" >
+							 placeholder="phone"
+							value="<?php echo !empty($phone)?$phone:'';?>" required>
 </div>
 					</div>
 				</div>

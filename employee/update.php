@@ -94,7 +94,7 @@
 					   <div class="form-group required">
 					    <label class="control-label">Phone</label>
 					    <div class="controls">
-					      	<input name="phone" type="tel"  placeholder="phone" value="<?php echo !empty($phone)?$phone:'';?>" required>
+					      	<input name="phone" type="tel"  placeholder="phone" maxlength="10" value="<?php echo !empty($phone)?$phone:'';?>" required>
 					      	</div>
 					    </div>
 					  </div>

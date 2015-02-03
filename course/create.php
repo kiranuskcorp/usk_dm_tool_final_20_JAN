@@ -49,6 +49,23 @@ if ( !empty($_POST)) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+function validate(){
+	var technologyid =document.getElementById("technologyid").value;
+	
+	 if(technologyid==0){
+		document.getElementById("technologyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
 </head>
 
 <body>
@@ -60,7 +77,7 @@ if ( !empty($_POST)) {
 			</div>
 
 			<form class="form-horizontal" action="./course/create.php"
-				method="post">
+				method="post" onsubmit="return validate()">
 				<!--<div class="control-group">
 					    <label class="control-label">Technology</label>
 					    <div class="controls">
@@ -73,15 +90,14 @@ if ( !empty($_POST)) {
 					<div class="form-group required">
 						<label class="control-label">Technology</label>
 						<div class="controls">
-							<select name="technologyid" type="text" required>
+							<select name="technologyid" id="technologyid">
 								<option value="0">Select</option>
 								<?php foreach ($data as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-
-							</select>
+							</select><span id="technologyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -98,7 +114,7 @@ if ( !empty($_POST)) {
 				<div class="control-group ">
 					<label class="control-label">Estimated Hours </label>
 					<div class="controls">
-						<input name="esthrs" type="text" placeholder="estimated hours"
+						<input name="esthrs" type="text"  placeholder="estimated hours"
 							value="<?php echo !empty($esthrs)?$esthrs:'';?>" >
 
 					</div>

@@ -87,6 +87,29 @@ else {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	
+	var technologyid =document.getElementById("technologyid").value;
+	var trainerid =document.getElementById("trainerid").value;
+
+	 if(technologyid==0){
+		document.getElementById("technologyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	 else if(trainerid==0){
+		 document.getElementById("traineridError").innerHTML="trainer Is Required";
+			return false;
+
+		 }
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
 </head>
 
 <body>
@@ -98,24 +121,14 @@ else {
 			</div>
 
 			<form class="form-horizontal"
-				action="./batch/update.php?id=<?php echo $id?>" method="post">
+				action="./batch/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()">
 
-
-				<!--  <div class="control-group">
-					<label class="control-label">ID</label>
-					<div class="controls">
-						<input name="id" type="text" placeholder="ID"
-							value="<?php echo !empty($id)?$id:'';?>"
-							required>
-
-					</div>
-				</div>  -->
 
 				<div class="control-group">
 				<div class="form-group required">
-					<label class="control-label">Technology</label>
+					<label class="control-label">Technology Name</label>
 					<div class="controls">
-						<select name="technologyid" type="text">
+						<select name="technologyid" id="technologyid">
 							<option value="0">Select</option>
 							<?php foreach ($selecteddataTechnology as $row): ?>
 							<option <?php if($row['id'] == $technologyid) {  ?>
@@ -132,26 +145,16 @@ else {
 							</option>
 
 							<?php endforeach ?>
-						</select>
+						</select><span id="technologyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
-
-
-				<!-- <div class="control-group">
-					<label class="control-label">TrainerName</label>
-					<div class="controls">
-						<input name="trainerid" type="text" placeholder="Trainerid"
-							value="<?php echo !empty($trainerid)?$trainerid:'';?>" required>
-
-					</div>
-				</div> -->
 
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">Trainer Name</label>
 					<div class="controls">
-						<select name="trainerid" type="text">
+						<select name="trainerid" id="trainerid">
 							<option value="0">Select</option>
 							<?php foreach ($selecteddataTrainer as $row): ?>
 							<option <?php if($row['id'] == $trainerid) {  ?>
@@ -168,7 +171,7 @@ else {
 							</option>
 
 							<?php endforeach ?>
-						</select>
+						</select><span id="traineridError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

@@ -92,6 +92,29 @@ else {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var clientid =document.getElementById("clientid").value;
+	var technologyid =document.getElementById("technologyid").value;
+	
+	if(clientid==0){
+		
+		document.getElementById("clientidError").innerHTML="Client Is Required";
+		return false;
+	}
+	else if(technologyid==0){
+		
+		document.getElementById("technologyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
 </head>
 
 <body>
@@ -103,7 +126,7 @@ else {
 			</div>
 
 			<form class="form-horizontal"
-				action="./trainee/update.php?id=<?php echo $id?>" method="post">
+				action="./trainee/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()">
 				<div class="control-group ">
 				<div class="form-group required">
 					<label class="control-label">Name</label>
@@ -126,27 +149,24 @@ else {
 				</div>
 				
 				
-				<div class="control-group ">
-				<div class="form-group required">
-					<label class="control-label">Phone</label>
-					<div class="controls">
-						 <input name="phone" type="tel" placeholder="phone"
-							maxlength="10" value="<?php echo !empty($phone)?$phone:'';?>"required>
-</div>
+				<div class="control-group">
+					<div class="form-group required">
+						<label class="control-label">Phone</label>
+						<div class="controls">
+								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								value="<?php echo !empty($phone)?$phone:'';?>" required>
+						</div>
 					</div>
 				</div>
 				
-
-				<div class="control-group ">
-				
-					<label class="control-label">Alternate Phone</label>
-					<div class="controls">
-						 <input name="alternatephone" type="tel"
-							placeholder="alternate phone"
-							value="<?php echo !empty($alternatephone)?$alternatephone:'';?>"
-							>
-
-					</div>
+				<div class="control-group">
+						<label class="control-label">Alternate Phone</label>
+						<div class="controls">
+							<input type="tel" name="alternatephone" maxlength="10" placeholder="alternatephone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								value="<?php echo !empty($alternatephone)?$alternatephone:'';?>" >
+						</div>
 				</div>
 
 
@@ -155,7 +175,7 @@ else {
 				<div class="form-group required">
 					<label class="control-label">Client</label>
 					<div class="controls">
-						<select name="clientid" type="text">
+						<select name="clientid" id="clientid">
 							<option value="0">Select</option>
 							<?php foreach ($selecteddataClient as $row): ?>
 							<option <?php if($row['id'] == $clientid) {  ?>
@@ -170,9 +190,8 @@ else {
 							echo $row ['name'];
 							?>
 							</option>
-
 							<?php endforeach ?>
-						</select>
+						</select><span id="clientidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -253,7 +272,7 @@ else {
 				<div class="form-group required">
 					<label class="control-label">Technology</label>
 					<div class="controls">
-						<select name="technologyid" type="text">
+						<select name="technologyid" id="technologyid">
 							<option value="0">Select</option>
 							<?php foreach ($selecteddataTechnology as $row): ?>
 							<option <?php if($row['id'] == $technologyid) {  ?>
@@ -270,7 +289,7 @@ else {
 							</option>
 
 							<?php endforeach ?>
-						</select>
+						</select><span id="technologyidError" style="color: red"></span>
 					</div>
 				</div>
 				</div>

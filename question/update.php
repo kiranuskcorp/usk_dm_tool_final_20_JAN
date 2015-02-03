@@ -64,6 +64,21 @@ else {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var interviewid =document.getElementById("interviewid").value;
+	
+	if(interviewid==0){
+		
+		document.getElementById("interviewidError").innerHTML="End Client Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+}
+</script>
 </head>
 
 <body>
@@ -75,13 +90,13 @@ else {
 			</div>
 
 			<form class="form-horizontal"
-				action="./question/update.php?id=<?php echo $id?>" method="post">
+				action="./question/update.php?id=<?php echo $id?>" method="post"  onsubmit="return validate()">
 
 				<div class="control-group">
 					<div class="form-group required">
 						<label class="control-label">End Cilent</label>
 						<div class="controls">
-							<select name="interviewid" type="text">
+							<select name="interviewid" id="interviewid">
 								<option value="0">Select</option>
 								<?php foreach ($interviewData as $row): ?>
 								<option <?php if($row['id'] == $interviewid) {  ?>
@@ -100,7 +115,7 @@ else {
 								</option>
 
 								<?php endforeach ?>
-							</select>
+							</select><span id="interviewidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

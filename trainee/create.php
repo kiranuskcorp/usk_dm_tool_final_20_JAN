@@ -148,20 +148,19 @@ function validate(){
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-							<input name="phone" type="tel" min="10" placeholder="phone" 
+								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>
 				</div>
 				
 				<div class="control-group">
-					
 						<label class="control-label">Alternate Phone</label>
 						<div class="controls">
-							<input name="alternatephone" type="tel" min="10"
-								placeholder="alternate phone"
-								value="<?php echo !empty($alternatephone)?$alternatephone:'';?>"
-								>
+							<input type="tel" name="alternatephone" maxlength="10" placeholder="alternatephone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								value="<?php echo !empty($alternatephone)?$alternatephone:'';?>" >
 						</div>
 					
 				</div>

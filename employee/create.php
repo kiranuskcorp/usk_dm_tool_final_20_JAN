@@ -98,16 +98,16 @@ if (! empty ( $_POST )) {
 				</div>
 
 				<div class="control-group">
-				<div class="form-group required">
-					<label class="control-label">Phone</label>
-					<div class="controls">
-					 <input name="phone" type="tel" maxlength="10"
-							 placeholder="phone"
-							value="<?php echo !empty($phone)?$phone:'';?>" required>
-</div>
+					<div class="form-group required">
+						<label class="control-label">Phone</label>
+						<div class="controls">
+								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+								value="<?php echo !empty($phone)?$phone:'';?>" required>
+						</div>
 					</div>
 				</div>
-
+				
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">Email</label>

@@ -66,6 +66,22 @@
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var technologyid =document.getElementById("technologyid").value;
+	
+	 if(technologyid==0){
+		document.getElementById("technologyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
 </head>
 
 <body>
@@ -77,7 +93,7 @@
 			</div>
 
 			<form class="form-horizontal"
-				action="./course/update.php?id=<?php echo $id?>" method="post">
+				action="./course/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()"> 
 
 				<!-- <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
 					    <label class="control-label">Technology</label>
@@ -92,7 +108,7 @@
 				<div class="form-group required">
 					<label class="control-label">Technology</label>
 					<div class="controls">
-						<select name="technologyid" type="text">
+						<select name="technologyid" id="technologyid">
 							<option value="0">Select</option>
                           <?php foreach ($selectedData as $row): ?>
 						<option <?php if($row['id'] == $technologyid) {  ?>
@@ -106,7 +122,7 @@
  							</option>
 							
 						<?php endforeach ?>
-						</select>
+						</select><span id="technologyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

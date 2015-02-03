@@ -48,6 +48,10 @@ if ( !empty($_POST)) {
 
 		header("Location:../?content=5");
 	}
+	
+	
+	
+	
 
 }
 
@@ -109,7 +113,12 @@ if ( !empty($_POST)) {
 						<label class="control-label">Phone</label>
 						<div class="controls">
 							<input name="phone" type="tel" placeholder="phone" maxlength="10"
-								value="<?php echo !empty($phone)?$phone:'';?>" required>
+								size="20"
+								value="<?php echo !empty($phone)?$phone:'';?>
+								" required>
+								
+								
+								
 						</div>
 					</div>
 				</div>

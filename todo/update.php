@@ -17,9 +17,9 @@ if ( null==$id ) {
 if ( !empty($_POST)) {
 	$category = $_POST['category'];
 	$status = $_POST['status'];
-	$assignedto = $_POST['assigned_to'];
+	$assignedto = $_POST['assignedto'];
 	$updatedDate=date("Y/m/d");
-	$estimatedtime=$_POST['estimated_time'];
+	$estimatedtime=$_POST['estimatedtime'];
 	$description = $_POST['description'];
 	//$name = $_POST['time'];
 

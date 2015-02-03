@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="./css/bootstrap.min.css" rel="stylesheet">
 
-<link href=".css/asterisk.css" rel="stylesheet" type="text/css" />
+<link href="./css/asterisk.css" rel="stylesheet" type="text/css" />
 <link href="./css/fa/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css" />
 <link href="./css/foot/footable-0.1.css" rel="stylesheet"
@@ -41,8 +41,7 @@
 
     });
 
-
-    function delRow(id)
+ function delRow(id)
     {
       var current = window.event.srcElement;
       //here we will delete the line
@@ -138,7 +137,7 @@ clear:right;
 </head>
 <body>
 <?php 
-error_reporting(0);
+//error_reporting(0);
 session_start();
 			$username = $_SESSION['username'];
 			if (!empty($username)){

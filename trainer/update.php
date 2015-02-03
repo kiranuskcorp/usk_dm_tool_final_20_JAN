@@ -107,9 +107,7 @@ else {
 							<option <?php if($row['id'] == $technologyid) {  ?>
 								selected="selected" value="<?=$row['id']?>">
 								<?php }else {?>
-								value="
-								<?=$row['id']?>
-								">
+								value="<?=$row['id']?>">
 								<?php
 }
 echo $row ['name'];
@@ -124,10 +122,10 @@ echo $row ['name'];
 				</div>
 
 				<div class="control-group">
-	<div class="form-group required">
+				<div class="form-group required">
 					<label class="control-label">Phone</label>
 					<div class="controls">
-						<input name="phone" type="tel" placeholder="Phone" maxlength="10"
+						<input name="phone" type="tel" placeholder="Phone"maxlength="10"
 							value="<?php echo !empty($phone)?$phone:'';?>" required>
 </div>
 					</div>

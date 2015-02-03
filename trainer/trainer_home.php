@@ -47,9 +47,9 @@
 						}
 						$phoneTd = '<td></td>';
 						if(!empty($row['phone'])){
-							
-								$phoneTd = '<td> <i class="fa fa-phone"></i> '. $row['phone'].'</td>';
-							
+
+							$phoneTd = '<td> <i class="fa fa-phone"></i> '. $row['phone'].'</td>';
+
 						}
 						echo '<tr>';
 						echo '<td>' . $row ['name'] . '</td>';
@@ -65,7 +65,7 @@
 						echo '<a href="?content=4&id=' . $row ['id'] . '"  onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>'; // '?content=16&id='.$row['id'].'
 						echo '</td>';
 						echo '</tr>';
-						
+
 					}
 					function deleteRecord($idValue) {
 																	$sql = "trainerDelete";
@@ -80,7 +80,8 @@
 																?>
 				</tbody>
 			</table>
-			<label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>
+			<label id="NoRowsAvailable" style="display: none"> No result matched
+				for search criteria </label>
 		</div>
 	</div>
 	<!-- /container -->

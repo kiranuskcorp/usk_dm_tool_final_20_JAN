@@ -24,14 +24,14 @@ if ( !empty($_POST)) {
 	$description = $_POST['description'];
 	// validate input
 	$valid = true;
-	
+
 	if (empty($interviewid)) {
 		$valid = false;
 	}
 	if (empty($question)) {
 		$valid = false;
 	}
-	
+
 
 
 	// update data
@@ -78,39 +78,41 @@ else {
 				action="./question/update.php?id=<?php echo $id?>" method="post">
 
 				<div class="control-group">
-				<div class="form-group required">
-					<label class="control-label">End Cilent</label>
-					<div class="controls">
-						<select name="interviewid" type="text">
-							<option value="0">Select</option>
-							<?php foreach ($interviewData as $row): ?>
-							<option <?php if($row['id'] == $interviewid) {  ?>
-								selected="selected" value="<?=$row['id']?>">
-								<?php
-}
-else {
+					<div class="form-group required">
+						<label class="control-label">End Cilent</label>
+						<div class="controls">
+							<select name="interviewid" type="text">
+								<option value="0">Select</option>
+								<?php foreach ($interviewData as $row): ?>
+								<option <?php if($row['id'] == $interviewid) {  ?>
+									selected="selected" value="<?=$row['id']?>" requried>
+									<?php
+								}
+								else {
 								?>
-								value="<?=$row['id']?>" >
-								<?php
+									value="
+									<?=$row['id']?>
+									" >
+									<?php
 							}
 							echo $row ['interviewer'];
 							?>
-							</option>
+								</option>
 
-							<?php endforeach ?>
-						</select>
+								<?php endforeach ?>
+							</select>
 						</div>
 					</div>
 				</div>
 
 				<div class="control-group">
-				<div class="form-group required">
-					<label class="control-label">Question</label>
+					<div class="form-group required">
+						<label class="control-label">Question</label>
 
-					<div class="controls">
-						<input name="question" type="text" placeholder="question"
-							value="<?php echo !empty($question)?$question:'';?>" required>
-</div>
+						<div class="controls">
+							<input name="question" type="text" placeholder="question"
+								value="<?php echo !empty($question)?$question:'';?>" required>
+						</div>
 					</div>
 				</div>
 

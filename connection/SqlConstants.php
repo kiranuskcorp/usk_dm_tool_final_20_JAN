@@ -60,9 +60,9 @@ class SqlConstants {
 			"batchUpdate" => "UPDATE batch set  technology_id=?,trainer_id=?,start_date=?,end_date=?,duration=?,status=?,updated_date=?,description=?,time=? WHERE id = ?",
 			"batchSelectById" => "SELECT * FROM batch where id = ?",
 
-			"todoSelect" => "SELECT t.*, e.name as employee_name  FROM todo t, employee e  WHERE t.assigned_to= e.id order by t.status desc",
+			"todoSelect" => "SELECT t.*, e.name as employee_name  FROM todo t, employee e  WHERE t.assigned_to= e.id AND deletedStatus=0 order by t.status desc",
 			"todoInsert" => "INSERT INTO todo (category, status, assigned_to,estimated_time,created_date,description) values(?,?,?,?,?,?)",
-			"todoDelete" => "DELETE FROM todo  WHERE id = ?",
+			"todoDelete" => "UPDATE todo set deletedStatus=1  WHERE id = ?",
 			"todoUpdate" => "UPDATE todo set  category=?,status=?,assigned_to=?,estimated_time=?,updated_date=?,description=? WHERE id = ?",
 			"todoSelectById" => "SELECT * FROM todo where id = ?",
 

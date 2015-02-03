@@ -15,7 +15,7 @@ if ( !empty($_POST)) {
 	$createdDate = date("Y/m/d");
 	//$updated_date = $_POST['updated_date'];
 	$description = $_POST['description'];
-
+ 
 	// validate input
 	$valid = true;
 	if (empty($interviewid)) {
@@ -24,10 +24,7 @@ if ( !empty($_POST)) {
 	
 	if (empty($question)) {
 		$valid = false;
-	}
-	
-
-		
+	}	
 	// insert data
 	if ($valid) {
 		$sql = "questionInsert";
@@ -42,9 +39,9 @@ if ( !empty($_POST)) {
 
 }
 
-/*if ( !empty($_GET)) {
- echo "<script type='text/javascript'>alert('get');</script>";
-}*/
+if ( !empty($_GET)) {
+ echo "<script type='text/javascript'></script>";
+}
 ?>
 
 
@@ -54,6 +51,25 @@ if ( !empty($_POST)) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var interviewid =document.getElementById("interviewid").value;
+	
+	if(interviewid==0){
+		
+		document.getElementById("interviewidError").innerHTML="End Client Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+}
+
+
+</script>
+
+
 </head>
 
 <body>
@@ -65,20 +81,20 @@ if ( !empty($_POST)) {
 			</div>
 
 			<form class="form-horizontal" action="./question/create.php"
-				method="post">
+				method="post" onsubmit="return validate()">
 
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">End Cilent</label>
 					<div class="controls">
-						<select name="interviewid" type="text">
+						<select name="interviewid" id="interviewid">
 							<option value="0">Select</option>
 							<?php foreach ($endClientData as $row): ?>
-							<option value="<?=$row['id']?>">
+							<option value="<?=$row['id']?>"requried >
 								<?php	echo $row ['interviewer'];?>
 								<?php endforeach ?>
 							</option>
-						</select>
+						</select><span id="interviewidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -100,7 +116,7 @@ if ( !empty($_POST)) {
 					<label class="control-label">Answers</label>
 					<div class="controls">
 						<textarea name="answers" type="text" placeholder="answers"
-							value="<?php echo !empty($answers)?$answers:'';?>" >
+							value="<?php echo !empty($answers)?$answers:'';?>" requried>
 					    	</textarea>
 					</div>
 				</div>

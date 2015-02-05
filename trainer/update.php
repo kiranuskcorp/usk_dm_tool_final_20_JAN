@@ -73,6 +73,22 @@ else {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var supportedbyid =document.getElementById("supportedbyid").value;
+	if(supportedbyid==0){
+		document.getElementById("supportedbyidError").innerHTML="technology Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
+
 </head>
 
 <body>
@@ -84,7 +100,7 @@ else {
 			</div>
 
 			<form class="form-horizontal"
-				action="./trainer/update.php?id=<?php echo $id?>" method="post">
+				action="./trainer/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()">
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label"> Trainer Name</label>
@@ -101,7 +117,7 @@ else {
 				<div class="form-group required">
 					<label class="control-label">Technology Name</label>
 					<div class="controls">
-						<select name="supportedby" type="text">
+						<select name="supportedby" id="supportedbyid">
 							<option value="0">Select a technology</option>
 							<?php foreach ($technologyData as $row): ?>
 							<option <?php if($row['id'] == $technologyid) {  ?>
@@ -116,7 +132,7 @@ echo $row ['name'];
 
 							<?php endforeach ?>
 							</option>
-						</select>
+						</select><span id="supportedbyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

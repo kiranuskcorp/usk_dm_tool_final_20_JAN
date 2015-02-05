@@ -78,7 +78,32 @@
     	   	} 
     }
 
-   
+    function delFromHome(id,sqlCon)
+    {
+    	
+    	 var current = window.event.srcElement;
+     	var answer =  confirm("Are you sure you want to delete?");
+    		if(answer){
+    	$.ajax({
+    		   type: "POST",
+    		   url: "/layout/connection/GlobalCrud.php",
+    		   data: {operation: "delete", sql: sqlCon, sqlValues: id},
+    		   cache: false,
+    		   success: function(){
+    			   $("#DeletedRecord").css("display", "block");
+    			   setTimeout(function(){
+    				   $("#DeletedRecord").css("display", "none");
+    			      },1000);
+    			   while ( (current = current.parentElement)  && current.tagName !="TR");
+    			              current.parentElement.removeChild(current);
+    		  },error: function(){
+    			
+    		  }
+    		 
+    		 });
+    		}
+    	
+    }
 
     
   </script>
@@ -133,11 +158,16 @@ width:50%;
 clear:right; 
 
 }
+#DeletedRecord{
+text-align: center;
+font-size: small;
+color: red;
+}
 </style>
 </head>
 <body>
 <?php 
-//error_reporting(0);
+error_reporting(0);
 session_start();
 			$username = $_SESSION['username'];
 			if (!empty($username)){

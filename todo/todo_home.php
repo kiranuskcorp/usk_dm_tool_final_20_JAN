@@ -41,9 +41,11 @@ function deleteRecordById(id){
 				<tbody>
 				
 					<?php 
+					
 					$path = $_SERVER['DOCUMENT_ROOT'];
 					$path .= "/layout/connection/GlobalCrud.php";
 					include_once($path);
+					
 					$data = GlobalCrud::getData('todoSelect');
 					foreach ($data as $row) {
 						echo '<tr id="'.$row['id'].'">';
@@ -54,12 +56,12 @@ function deleteRecordById(id){
 						echo '<td nowrap="nowrap">';
 						echo '<a href="#" data-toggle="tooltip" title="'.$row['description'] .'"> <i class="fa fa-caret-square-o-up"></i></a>';
 						echo '<a href="?content=21&id='.$row['id'].'"> <i class="fa fa-pencil-square"></i></a>';
-						echo '<a href="?content=19&id='.$row['id'].'"  onclick="return deleteRecordById('.$row['id'].')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
+					    echo '<a href="?content=19&id='.$row['id'].'"  onclick="return deleteRecordById('.$row['id'].')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
 						echo '</td>';
 						echo '</tr>';
 					}
 
-					function deleteRecord($idValue) {
+					 function deleteRecord($idValue) {
 									$sql = "todoDelete";
 									$sqlValues = $idValue;
 									GlobalCrud::delete($sql,$sqlValues);

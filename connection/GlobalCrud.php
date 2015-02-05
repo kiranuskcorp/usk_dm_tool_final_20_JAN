@@ -6,6 +6,14 @@ include_once ($path);
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/SqlConstants.php";
 include_once ($path);
+
+$operation = $_POST['operation'];
+$sql= $_POST['sql'];
+$sqlValues= $_POST['sqlValues'];
+
+if ($operation == "delete"){
+	GlobalCrud::delete($sql,$sqlValues);
+}
 class GlobalCrud {
 	public static function getData($value) {
 		$pdo = Database::connect ();

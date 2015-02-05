@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<script language="javascript" type="text/javascript">
-
-function popitup(url) {
-	newwindow=window.open(url,'name','height=200,width=150');
-	if (window.focus) {newwindow.focus()}
-	return false;
-}
-function myFunction() {
-    alert("I am an alert box!");
-	
-    
-}
-
-
-</script>
 <body>
 
 	<div class="container-fluid">
@@ -27,7 +12,6 @@ function myFunction() {
 					class="fa fa-plus-square"></i>&nbsp;Add</a> <a
 					href="./Excels/traineeexcel.php" class="btn btn-default btn-lg "
 					role="button"><i class="fa fa-file-excel-o"></i> export</a> 
-					<a href="#" class="btn btn-default" onclick="myFunction()"><i class="icon-envelope"></i>&nbsp;Email</a>
 			</p>
 
 
@@ -35,7 +19,7 @@ function myFunction() {
 
                <input id="example" type="text" class="form-control" placeholder="Type here..."> -->
 
-			Search:<input id="filter" type="text" />
+			Search:<input id="filter" type="text" /><label id="DeletedRecord" style="display: none">Record Deleted successfully!!</label>
 			<table data-filter="#filter" class="footable">
 				<thead>
 					<tr>
@@ -53,9 +37,11 @@ function myFunction() {
 				</thead>
 				<tbody>
 					<?php 
+					header("Cache-Control:no-cache");
 					$path = $_SERVER['DOCUMENT_ROOT'];
 					$path .= "/layout/connection/GlobalCrud.php";
 					include_once($path);
+					$delete="traineeDelete";
 					$data = GlobalCrud::getData('traineeSelect');
 					foreach ($data as $row) {
 						$emailTd = '<td></td>';
@@ -75,7 +61,6 @@ function myFunction() {
 							}
 						}
 						echo '<tr>';
-						//echo '<td>'. $row['name'] . '</td>';
 						echo '<td>'. $row['name']  . '</td>';
 						echo $emailTd;
 						echo $phoneTd;
@@ -84,16 +69,16 @@ function myFunction() {
 						echo '<td>'. $row['client_name'] . '</td>';
 						echo '<td>'. $row['skype_id'] . '</td>';
 						echo '<td>'. $row['timezone'] . '</td>';
-						//echo '<td>'. $row['description'] . '</td>';
 						echo '<td nowrap="nowrap">';
 						echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"><i class="fa fa-caret-square-o-up"></i></a>';
 						echo '<a href="?content=39&id='.$row['id'].'"> <i class="fa fa-pencil-square"></i></a>';
-						echo '<a href="?content=37&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
+						//echo '<a href="?content=37&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
+						echo '<a href="#"  onClick=delFromHome('.$row['id'].',"traineeDelete") > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
 						echo '</td>';
 						echo '</tr>';
 					}
 
-					function deleteRecord($idValue) {
+					/* function deleteRecord($idValue) {
 									$sql = "traineeDelete";
 									$sqlValues = $idValue;
 									GlobalCrud::delete($sql,$sqlValues);
@@ -103,7 +88,7 @@ function myFunction() {
 						  if (isset($_GET['id'])) {
 						    deleteRecord($_GET['id']);
 						    header("Refresh: 0");
-						  }
+						  } */
 						  ?>
 				</tbody>
 			</table>

@@ -1,9 +1,9 @@
 <?php
 class SqlConstants {
 	static $allSelect = array(
-			"technologySelect" => "SELECT * FROM technology ORDER BY name asc",
+			"technologySelect" => "SELECT * FROM technology where active_flag=0 ORDER BY name asc",
 			"technologyInsert" => "INSERT INTO technology (name,created_date,description) values(?, ?,?)",
-			"technologyDelete" => "DELETE FROM technology  WHERE id = ?",
+			"technologyDelete" => "UPDATE technology set  active_flag=1 WHERE id = ?",
 			"technologyUpdate" => "UPDATE technology set name = ?,  updated_date =?, description =? WHERE id = ?",
 			"technologySelectById" => "SELECT * FROM technology where id = ?",
 
@@ -13,9 +13,9 @@ class SqlConstants {
 			"trainerUpdate" => "UPDATE trainer set name=?, technology_id=?,phone=?,email=?,updated_date=?,description=? WHERE id = ?",
 			"trainerSelectById" => "SELECT * FROM trainer where id = ?",
 
-			"employeeSelect" => "SELECT * FROM employee ORDER BY name asc",
+			"employeeSelect" => "SELECT * FROM employee where active_flag=0 ORDER BY name asc",
 			"employeeInsert" => "INSERT INTO employee (name,phone,email,role,base_salary,created_date,description) values(?, ?,?,?,?,?,?)",
-			"employeeDelete" => "DELETE FROM employee  WHERE id = ?",
+			"employeeDelete" => "UPDATE employee set active_flag=1 WHERE id = ?",
 			"employeeUpdate" => "UPDATE employee set name=?,phone=?,email=?,role=?,base_salary=?,updated_date=?,description=? WHERE id = ?",
 			"employeeSelectById" => "SELECT * FROM employee where id = ?",
 
@@ -29,7 +29,7 @@ class SqlConstants {
 
 			"traineeSelect" => "SELECT tr.*, cl.name as client_name, te.name as technology_name
 			FROM trainee tr, client cl, technology te
-			WHERE tr.client_id = cl.id and tr.technology_id = te.id order by tr.name asc",
+			WHERE tr.client_id = cl.id  and tr.technology_id = te.id order by tr.name asc",
 			"traineeInsert" => "INSERT INTO trainee (name, email,alternate_phone,client_id,skype_id,timezone,batch_id,created_date,description,phone,technology_id) values(?, ?, ?,?,?,?,?,?,?,?,?)",
 			"traineeDelete" => "DELETE FROM trainee  WHERE id = ?",
 			"traineeUpdate" => "UPDATE trainee set name=?, email=?,alternate_phone=?,client_id=?,skype_id=?,timezone=?,batch_id=?,updated_date=?,description=?,phone=?,technology_id=? WHERE id = ?",
@@ -37,7 +37,7 @@ class SqlConstants {
 
 			"clientSelect" => "SELECT * FROM client ORDER BY name asc",
 			"clientInsert" => "INSERT INTO client (name, address,created_date,description) values(?, ?, ?,?)",
-			"clientDelete" => "DELETE FROM client  WHERE id = ?",
+			"clientDelete" => "DELETE FROM client   WHERE id = ?",
 			"clientUpdate" => "UPDATE client set name=?, address=?,updated_date=?,description=? WHERE id = ?",
 			"clientSelectById" => "SELECT * FROM client where id = ?",
 
@@ -48,9 +48,9 @@ class SqlConstants {
 			"contactSelectById" => "SELECT * FROM contact where client_id = ?",
  
 			"courseSelect" => "SELECT c.*,te.name as technology_name
-			FROM  course c, technology te WHERE c.technology_id= te.id order by te.name asc",
+			FROM  course c, technology te WHERE c.technology_id= te.id  order by te.name asc",
 			"courseInsert" => "INSERT INTO course (technology_id,name,est_hrs,created_date,description) values( ?, ?,?,?,?)",
-			"courseDelete" => "DELETE FROM course  WHERE id = ?",
+			"courseDelete" => "DELETE FROM course WHERE id = ?",
 			"courseUpdate" => "UPDATE course set technology_id=?,name=?,est_hrs=?,updated_date=?,description=? WHERE id = ?",
 			"courseSelectById" => "SELECT * FROM course where id = ?",
 
@@ -60,9 +60,9 @@ class SqlConstants {
 			"batchUpdate" => "UPDATE batch set  technology_id=?,trainer_id=?,start_date=?,end_date=?,duration=?,status=?,updated_date=?,description=?,time=? WHERE id = ?",
 			"batchSelectById" => "SELECT * FROM batch where id = ?",
 
-			"todoSelect" => "SELECT t.*, e.name as employee_name  FROM todo t, employee e  WHERE t.assigned_to= e.id AND deletedStatus=0 order by t.status desc",
+			"todoSelect" => "SELECT t.*, e.name as employee_name  FROM todo t, employee e  WHERE t.assigned_to= e.id AND active_flag=0 order by t.status desc",
 			"todoInsert" => "INSERT INTO todo (category, status, assigned_to,estimated_time,created_date,description) values(?,?,?,?,?,?)",
-			"todoDelete" => "UPDATE todo set deletedStatus=1  WHERE id = ?",
+			"todoDelete" => "UPDATE todo set active_flag=1  WHERE id = ?",
 			"todoUpdate" => "UPDATE todo set  category=?,status=?,assigned_to=?,estimated_time=?,updated_date=?,description=? WHERE id = ?",
 			"todoSelectById" => "SELECT * FROM todo where id = ?",
 

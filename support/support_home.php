@@ -39,11 +39,15 @@
 					include_once($path);
 					$data = GlobalCrud::getData('supportSelect');
 					foreach ($data as $row) {
+						$end_dateTd='<td>'. $row['end_date'] . '</td>';
+						if($row['end_date'] == '0000-00-00'){
+							$end_dateTd='<td></td>';
+						}
 						echo '<tr>';
 						echo '<td>'. $row['trainee_name'] . '</td>';
 						echo '<td>'. $row['employee_name'] . '</td>';
 						echo '<td>'. $row['start_date'] . '</td>';
-						echo '<td>'. $row['end_date'] . '</td>';
+						echo $end_dateTd;
 						echo '<td>'. $row['allotted_time'] . '</td>';
 						echo '<td>'. $row['end_client'] . '</td>';
 						echo '<td>'. $row['technology_used'] . '</td>';

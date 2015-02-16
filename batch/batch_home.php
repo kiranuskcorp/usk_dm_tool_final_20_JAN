@@ -46,14 +46,24 @@
 					$count=0;
 					$data = GlobalCrud::getData('batchSelect');
 					foreach ($data as $row) {
+						$end_dateTd='<td>'. $row['end_date'] . '</td>';
+						if($row['end_date'] == '0000-00-00'){
+							$end_dateTd='<td></td>';
+						}
+						$durationTd='<td>'. $row['duration'] . '</td>';
+						if($row['duration'] == '0'){
+							$durationTd='<td></td>';
+						}
+						
+					
 						echo '<tr>';
 						echo '<td>'. $row['id'] . '</td>';
 						echo '<td>'. $row['technology_name'] . '</td>';
 						echo '<td>'. $row['trainer_name'] . '</td>';
 						echo '<td>'. $row['start_date'] . '</td>';
-						echo '<td>'. $row['end_date'] . '</td>';
+						echo $end_dateTd;
 						echo '<td>'. $row['time'] . '</td>';
-						echo '<td>'. $row['duration'] . '</td>';
+						echo $durationTd;
 						echo '<td>'. $row['status'] . '</td>';
 						echo '<td>';
 						echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"> <i class="fa fa-caret-square-o-up"></i></a>';

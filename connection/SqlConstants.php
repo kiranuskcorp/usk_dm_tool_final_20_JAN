@@ -29,15 +29,15 @@ class SqlConstants {
 
 			"traineeSelect" => "SELECT tr.*, cl.name as client_name, te.name as technology_name
 			FROM trainee tr, client cl, technology te
-			WHERE tr.client_id = cl.id  and tr.technology_id = te.id order by tr.name asc",
+			WHERE tr.active_flag=0 AND tr.client_id = cl.id  and tr.technology_id = te.id order by tr.name asc",
 			"traineeInsert" => "INSERT INTO trainee (name, email,alternate_phone,client_id,skype_id,timezone,batch_id,created_date,description,phone,technology_id) values(?, ?, ?,?,?,?,?,?,?,?,?)",
-			"traineeDelete" => "DELETE FROM trainee  WHERE id = ?",
+			"traineeDelete" => "UPDATE trainee  set active_flag=1  WHERE id = ?",
 			"traineeUpdate" => "UPDATE trainee set name=?, email=?,alternate_phone=?,client_id=?,skype_id=?,timezone=?,batch_id=?,updated_date=?,description=?,phone=?,technology_id=? WHERE id = ?",
 			"traineeSelectById" => "SELECT * FROM trainee where id = ?",
 
-			"clientSelect" => "SELECT * FROM client ORDER BY name asc",
+			"clientSelect" => "SELECT * FROM client where active_flag=0 ORDER BY name asc",
 			"clientInsert" => "INSERT INTO client (name, address,created_date,description) values(?, ?, ?,?)",
-			"clientDelete" => "DELETE FROM client   WHERE id = ?",
+			"clientDelete" => "UPDATE client set active_flag=1   WHERE id = ?",
 			"clientUpdate" => "UPDATE client set name=?, address=?,updated_date=?,description=? WHERE id = ?",
 			"clientSelectById" => "SELECT * FROM client where id = ?",
 
@@ -48,15 +48,15 @@ class SqlConstants {
 			"contactSelectById" => "SELECT * FROM contact where client_id = ?",
  
 			"courseSelect" => "SELECT c.*,te.name as technology_name
-			FROM  course c, technology te WHERE c.technology_id= te.id  order by te.name asc",
+			FROM  course c, technology te WHERE c.active_flag=0 AND c.technology_id= te.id  order by te.name asc",
 			"courseInsert" => "INSERT INTO course (technology_id,name,est_hrs,created_date,description) values( ?, ?,?,?,?)",
-			"courseDelete" => "DELETE FROM course WHERE id = ?",
+			"courseDelete" => "UPDATE course set active_flag=1 WHERE id = ?",
 			"courseUpdate" => "UPDATE course set technology_id=?,name=?,est_hrs=?,updated_date=?,description=? WHERE id = ?",
 			"courseSelectById" => "SELECT * FROM course where id = ?",
 
-			"batchSelect" => "SELECT b.*, t.name as technology_name, tr.name as trainer_name FROM batch b, technology t, trainer tr WHERE b.technology_id = t.id and b.trainer_id = tr.id order by b.id desc",
+			"batchSelect" => "SELECT b.*, t.name as technology_name, tr.name as trainer_name FROM batch b, technology t, trainer tr WHERE b.active_flag=0 AND b.technology_id = t.id and b.trainer_id = tr.id order by b.id desc",
 			"batchInsert" => "INSERT INTO batch (technology_id,trainer_id,start_date,end_date,duration,status,created_date,description,time) values( ?,?,?,?,?,?,?,?,?)",
-			"batchDelete" => "DELETE FROM batch  WHERE id = ?",
+			"batchDelete" => "UPDATE batch set active_flag=1 WHERE id = ?",
 			"batchUpdate" => "UPDATE batch set  technology_id=?,trainer_id=?,start_date=?,end_date=?,duration=?,status=?,updated_date=?,description=?,time=? WHERE id = ?",
 			"batchSelectById" => "SELECT * FROM batch where id = ?",
 

@@ -32,6 +32,8 @@ if (! empty ( $_POST )) {
 		$valid = false;
 	}
 	
+
+	
 	// insert data
 	if ($valid) {
 		$sql = "batchInsert";

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
@@ -34,6 +35,7 @@ if (! empty ( $_POST )) {
 		}
 	}
 }
+
 ?>
 <html>
 <head>

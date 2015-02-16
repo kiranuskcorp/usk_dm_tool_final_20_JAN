@@ -87,12 +87,17 @@ if (! empty ( $_POST )) {
 
 			<form class="form-horizontal" action="./employee/create.php"
 				method="post">
+				<div class="form-actions1">
+					<span id="createMessage" style="color: red; display: none">Dulpicate
+						Entry Is Not Allowed</span>
+				</div>
 				<div class="control-group">
 				<div class="form-group required">
 					<label class="control-label">Name</label>
 					<div class="controls">
-						 <input name="name" type="text" placeholder="name"
-							value="<?php echo !empty($name)?$name:'';?>" required>
+						<input name="name" id="name" type="text" placeholder="name"
+								value="<?php echo !empty($name)?$name:'';?>"
+								onkeyup="validateUser('employee')"  required>
 					</div>
 					</div>
 				</div>
@@ -160,7 +165,7 @@ if (! empty ( $_POST )) {
 
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Create</button>
+					<button type="submit" class="btn btn-success" id="create">Create</button>
 					<a class="btn" href="index.php">Back</a>
 				</div>
 			</form>

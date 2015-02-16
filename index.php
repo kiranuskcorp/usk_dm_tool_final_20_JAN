@@ -56,27 +56,49 @@
                  }    
     }
 
-    function validateUser(tablename) {
-    	var name = document.getElementById("name").value;
-    	// alert("Name"+name.length); 
-        if(name.length>=3){
-        	$.ajax({
-        		  url: 'globalValue.php',
-        		  type: 'POST',
-        		  data: name+'name',
-        		  success: function(data) {
-            		  alert(data);
-        			//called when successful
-        			//$('#ajaxphp-results').html(data);
-        		  },
-        		  error: function(e) {
-        			//called when there is an error
-        			//console.log(e.message);
-        		  }
-        		});
-		
-    	   	} 
-    }
+ function MatchIgnoreCase(strTerm, strToSearch) 
+ { 
+ 	strToSearch = strToSearch.toLowerCase(); 
+ 	strTerm = strTerm.toLowerCase(); 
+ 	if(strToSearch==strTerm) 
+ 	{ 
+ 		return true; 
+ 	} else { 
+ 		return false; 
+ 	} 
+ }
+     function validateUser(tablename) {
+     	var name = document.getElementById("name").value;
+     	// alert("Name"+name.length); 
+         if(name.length>=3){
+         	$.ajax({
+         		  url: '/layout/connection/GlobalCrud.php',
+         		  type: 'POST',
+         		  data: {operation: "duplicate", sql: "select * from "+tablename+" where name like  '"+name+"%'" , sqlValues:""},
+         		  success: function(response) {
+         		  	var splitted = response.split(",", 1);
+
+         		  var result = MatchIgnoreCase(name,splitted+"");
+         		  	$('#createMessage').css("display", "none");
+         			if(result){
+         				
+         		  		$('#create').hide();
+         		  		$('#update').hide();
+         		  		$('#createMessage').css("display", "block");
+         		  	}
+         			else{
+         				$('#create').show();
+         				$('#update').show();
+         				$('#createMessage').css("display", "none");
+             			}
+         		  },
+         		  error: function(e) {
+         		  }
+         		});
+ 		
+     	   	} 
+     }
+    
 
     function delFromHome(id,sqlCon)
     {

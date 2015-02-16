@@ -122,12 +122,17 @@ else {
 
 			<form class="form-horizontal"
 				action="./client/update.php?id=<?php echo $id?>" method="post">
+				<div class="form-actions1">
+					<span id="createMessage" style="color: red; display: none">Dulpicate
+						Entry Is Not Allowed</span>
+				</div>
 				<div
 					class="control-group <?php echo !empty($nameError)?'error':'';?>">
 					<label class="control-label">Name</label>
 					<div class="controls">
-						<input name="name" type="text" placeholder="name"
-							value="<?php echo !empty($name)?$name:'';?>" required>
+						<input name="name" id="name" type="text" placeholder="name"
+								value="<?php echo !empty($name)?$name:'';?>"
+								onkeyup="validateUser('client')" required>
 
 					</div>
 				</div>
@@ -207,7 +212,7 @@ else {
 
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Update</button>
+					<button type="submit" class="btn btn-success" id="update">Update</button>
 					<a class="btn" href="index.php">Back</a>
 				</div>
 			</form>

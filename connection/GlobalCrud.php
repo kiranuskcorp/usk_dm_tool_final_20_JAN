@@ -14,11 +14,29 @@ $sqlValues= $_POST['sqlValues'];
 if ($operation == "delete"){
 	GlobalCrud::delete($sql,$sqlValues);
 }
+
+if ($operation == "duplicate"){
+	GlobalCrud::duplicate($sql);
+}
+
 class GlobalCrud {
 	public static function getData($value) {
 		$pdo = Database::connect ();
 		$sql = SqlConstants::$allSelect [$value];
 		$data = $pdo->query ( $sql );
+		return $data;
+		Database::disconnect ();
+	}
+	
+	public static function duplicate($sql) {
+	
+		$pdo = Database::connect ();
+		$sql = $sql;
+		$data = $pdo->query ( $sql );
+		foreach ($data as $row) {
+			echo $row['name'];
+			echo ',';
+		}
 		return $data;
 		Database::disconnect ();
 	}

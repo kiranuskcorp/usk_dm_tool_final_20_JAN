@@ -1,51 +1,55 @@
-<?php 
-
-$path = $_SERVER['DOCUMENT_ROOT'];
+<?php
+$path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
-include_once($path);
+include_once ($path);
 
 $id = null;
-if ( !empty($_GET['id'])) {
-	$id = $_REQUEST['id'];
+if (! empty ( $_GET ['id'] )) {
+	$id = $_REQUEST ['id'];
 }
 
-if ( null==$id ) {
-	header("Location: index.php?content=1");
+if (null == $id) {
+	header ( "Location: index.php?content=1" );
 }
 
-if ( !empty($_POST)) {
-
-	$name = $_POST['name'];
-	//$createdDate = $_POST['createdDate'];
-	$updatedDate = date("Y/m/d");
-	$description = $_POST['description'];
-
+if (! empty ( $_POST )) {
+	
+	$name = $_POST ['name'];
+	// $createdDate = $_POST['createdDate'];
+	$updatedDate = date ( "Y/m/d" );
+	$description = $_POST ['description'];
+	
 	// validate input
 	$valid = true;
-	if (empty($name)) {
+	if (empty ( $name )) {
 		$valid = false;
 	}
-
-
-		
+	
 	// update data
 	if ($valid) {
 		$sql = "technologyUpdate";
-		$sqlValuesForUpdate = array($name,$updatedDate,$description,$id);
-		GlobalCrud::update($sql,$sqlValuesForUpdate);
-
-		header("Location:../?content=1");
+		$sqlValuesForUpdate = array (
+				$name,
+				$updatedDate,
+				$description,
+				$id 
+		);
+		GlobalCrud::update ( $sql, $sqlValuesForUpdate );
+		
+		header ( "Location:../?content=1" );
 	}
-}
+} 
 
 else {
 	$sql = "technologySelectById";
-	$sqlValues = array($id);
-	$data = GlobalCrud::selectById($sql,$sqlValues);
-	$name = $data['name'];
-	$createdDate = $data['created_date'];
-	$updatedDate = $data['updated_date'];
-	$description = $data['description'];
+	$sqlValues = array (
+			$id 
+	);
+	$data = GlobalCrud::selectById ( $sql, $sqlValues );
+	$name = $data ['name'];
+	$createdDate = $data ['created_date'];
+	$updatedDate = $data ['updated_date'];
+	$description = $data ['description'];
 }
 ?>
 
@@ -68,13 +72,19 @@ else {
 
 			<form class="form-horizontal"
 				action="./technology/update.php?id=<?php echo $id?>" method="post">
-				<div class="control-group <?php echo !empty($nameError)?'error':'';?>">
-				<div class="form-group required">
-					<label class="control-label">Name</label>
-					<div class="controls">
-						 <input name="name" type="text" placeholder="Name"
-							value="<?php echo !empty($name)?$name:'';?>" required>
-</div>
+				<div class="form-actions1">
+					<span id="createMessage" style="color: red; display: none">Dulpicate
+						Entry Is Not Allowed</span>
+				</div>
+				<div
+					class="control-group <?php echo !empty($nameError)?'error':'';?>">
+					<div class="form-group required">
+						<label class="control-label">Technology Name</label>
+						<div class="controls">
+							<input name="name" id="name" type="text" placeholder="name"
+								value="<?php echo !empty($name)?$name:'';?>"
+								onkeyup="validateUser('technology')" required>
+						</div>
 					</div>
 				</div>
 				<!--  <div class="control-group">
@@ -102,7 +112,7 @@ else {
 				</div>
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Update</button>
+					<button type="submit" class="btn btn-success" id="update">Update</button>
 					<a class="btn" href="index.php">Back</a>
 				</div>
 			</form>

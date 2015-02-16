@@ -37,6 +37,11 @@
    					   $count=0;
 					   $data = GlobalCrud::getData('employeeSelect');
 					   foreach ($data as $row) {
+					   	
+					   	$roleTd = '<td></td>';
+					   	if(!empty($row['role'])){
+					   		$roleTd ='<td>'.$row['role'].'</td>';
+					   	}
 					   	$emailTd = '<td></td>';
 					   	if(!empty($row['email'])){
 					   		$emailTd = '<td> <i class="fa fa-envelope"></i> '. $row['email'] . '</td>';
@@ -51,7 +56,7 @@
 							   	echo '<td>'. $row['name'] . '</td>';
 							   	echo $phoneTd;
 							   	echo $emailTd;
-							   	echo '<td>'. $row['role'] . '</td>';
+							   	echo $roleTd;
 							   	echo '<td nowrap="nowrap">';
 							   	echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"> <i class="fa fa-caret-square-o-up"></i></a>';
 							   	echo '<a href="?content=15&id='.$row['id'].'"> <i class="fa fa-pencil-square"></i></a>';

@@ -1,41 +1,43 @@
-<?php 
-
-$path = $_SERVER['DOCUMENT_ROOT'];
+<?php
+$path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
-include_once($path);
+include_once ($path);
 
-if ( !empty($_POST)) {
-
+if (! empty ( $_POST )) {
+	
 	// keep track post values
-	$name = $_POST['name'];
-	$createdDate =date("Y/m/d");
-	//$updatedDate = $_POST['updatedDate'];
-	$description = $_POST['description'];
-
+	$name = $_POST ['name'];
+	$createdDate = date ( "Y/m/d" );
+	// $updatedDate = $_POST['updatedDate'];
+	$description = $_POST ['description'];
+	
 	// validate input
 	$valid = true;
-	if (empty($name)) {
+	if (empty ( $name )) {
 		$valid = false;
 	}
-
-
+	
 	// insert data
 	if ($valid) {
 		$sql = "technologyInsert";
-		$sqlValues = array($name,$createdDate,$description);
-		GlobalCrud::setData($sql,$sqlValues);
-		header("Location:../?content=1");
+		$sqlValues = array (
+				$name,
+				$createdDate,
+				$description 
+		);
+		GlobalCrud::setData ( $sql, $sqlValues );
+		header ( "Location:../?content=1" );
+	} else {
+		
+		header ( "Location:../?content=2" );
 	}
-	else{
-
-		header("Location:../?content=2");
-	}
-
 }
 
-/*if ( !empty($_GET)) {
- echo "<script type='text/javascript'>alert('get');</script>";
-}*/
+/*
+ * if ( !empty($_GET)) {
+ * echo "<script type='text/javascript'>alert('get');</script>";
+ * }
+ */
 ?>
 
 
@@ -57,22 +59,23 @@ if ( !empty($_POST)) {
 
 			<form class="form-horizontal" action="./technology/create.php"
 				method="post">
-
+				<div class="form-actions1">
+					<span id="createMessage" style="color: red; display: none">Dulpicate
+						Entry Is Not Allowed</span>
+				</div>
 
 				<div
 					class="control-group <?php echo !empty($nameError)?'error':'';?>">
 					<div class="form-group required">
 						<label class="control-label">Technology Name</label>
 						<div class="controls">
-							<input name="name" type="text" placeholder="name"
-								value="<?php echo !empty($name)?$name:'';?>" required>
+							<input name="name" id="name" type="text" placeholder="name"
+								value="<?php echo !empty($name)?$name:'';?>"
+								onkeyup="validateUser('technology')" required>
 
 						</div>
 					</div>
 				</div>
-
-
-
 				<div
 					class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
 					<label class="control-label">Description</label>
@@ -85,8 +88,8 @@ if ( !empty($_POST)) {
 
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Create</button>
-					<a class="btn" href="index.php">Back</a>
+					<button type="submit" class="btn btn-success" id="create">Create</button>
+                    <a class="btn" href="index.php">Back</a>
 				</div>
 
 			</form>

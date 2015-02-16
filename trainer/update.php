@@ -1,68 +1,74 @@
-<?php 
-
-$path = $_SERVER['DOCUMENT_ROOT'];
+<?php
+$path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
-include_once($path);
-$technologyData = GlobalCrud::getData('technologySelect');
+include_once ($path);
+$technologyData = GlobalCrud::getData ( 'technologySelect' );
 $id = null;
-if ( !empty($_GET['id'])) {
-	$id = $_REQUEST['id'];
+if (! empty ( $_GET ['id'] )) {
+	$id = $_REQUEST ['id'];
 }
 
-if ( null==$id ) {
-	header("Location: index.php?content=4");
+if (null == $id) {
+	header ( "Location: index.php?content=4" );
 }
 
-if ( !empty($_POST)) {
-	$name = $_POST['name'];
-	$technologyid = $_POST['supportedby'];
-	$phone = $_POST['phone'];
-	$email = $_POST['email'];
-	//$createdDate = $_POST['createdDate'];
-	$updatedDate = date("Y/m/d");
-	$description = $_POST['description'];
-
+if (! empty ( $_POST )) {
+	$name = $_POST ['name'];
+	$technologyid = $_POST ['supportedby'];
+	$phone = $_POST ['phone'];
+	$email = $_POST ['email'];
+	// $createdDate = $_POST['createdDate'];
+	$updatedDate = date ( "Y/m/d" );
+	$description = $_POST ['description'];
+	
 	// validate input
 	$valid = true;
 	$valid = true;
-	if (empty($name)) {
+	if (empty ( $name )) {
 		$valid = false;
 	}
-
-	if (empty($technologyid)) {
+	
+	if (empty ( $technologyid )) {
 		$valid = false;
 	}
-
-	if (empty($phone)) {
+	
+	if (empty ( $phone )) {
 		$valid = false;
 	}
-
-	if (empty($email)) {
+	
+	if (empty ( $email )) {
 		$valid = false;
 	}
-
-
-
-
+	
 	// update data
 	if ($valid) {
 		$sql = "trainerUpdate";
-		$sqlValuesForUpdate = array($name,$technologyid,$phone,$email,$updatedDate,$description,$id);
-		GlobalCrud::update($sql,$sqlValuesForUpdate);
-
-		header("Location:../?content=4");
+		$sqlValuesForUpdate = array (
+				$name,
+				$technologyid,
+				$phone,
+				$email,
+				$updatedDate,
+				$description,
+				$id 
+		);
+		GlobalCrud::update ( $sql, $sqlValuesForUpdate );
+		
+		header ( "Location:../?content=4" );
 	}
-}
+} 
 
 else {
 	$sql = "trainerSelectById";
-	$sqlValues = array($id);
-	$data = GlobalCrud::selectById($sql,$sqlValues);
-	$name = $data['name'];
-	$technologyid = $data['technology_id'];
-	$phone = $data['phone'];
-	$email = $data['email'];
-	$description = $data['description'];
+	$sqlValues = array (
+			$id 
+	);
+	$data = GlobalCrud::selectById ( $sql, $sqlValues );
+	$name = $data ['name'];
+	$technologyid = $data ['technology_id'];
+	$phone = $data ['phone'];
+	$email = $data ['email'];
+	$description = $data ['description'];
 }
 ?>
 
@@ -100,39 +106,45 @@ function validate(){
 			</div>
 
 			<form class="form-horizontal"
-				action="./trainer/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()">
+				action="./trainer/update.php?id=<?php echo $id?>" method="post"
+				onsubmit="return validate()">
+				<div class="form-actions1">
+					<span id="createMessage" style="color: red; display: none">Dulpicate
+						Entry Is Not Allowed</span>
+				</div>
 				<div class="control-group">
-				<div class="form-group required">
-					<label class="control-label"> Trainer Name</label>
-					<div class="controls">
-						<input name="name" type="text" placeholder="Name"
-							value="<?php echo !empty($name)?$name:'';?>" required>
-</div>
+					<div class="form-group required">
+						<label class="control-label"> Trainer Name</label>
+						<div class="controls">
+							<input name="name" id="name" type="text" placeholder="name"
+								value="<?php echo !empty($name)?$name:'';?>"
+								onkeyup="validateUser('trainer')" required>
+						</div>
 					</div>
 				</div>
 
 
 
 				<div class="control-group">
-				<div class="form-group required">
-					<label class="control-label">Technology Name</label>
-					<div class="controls">
-						<select name="supportedby" id="supportedbyid">
-							<option value="0">Select a technology</option>
+					<div class="form-group required">
+						<label class="control-label">Technology Name</label>
+						<div class="controls">
+							<select name="supportedby" id="supportedbyid">
+								<option value="0">Select a technology</option>
 							<?php foreach ($technologyData as $row): ?>
 							<option <?php if($row['id'] == $technologyid) {  ?>
-								selected="selected" value="<?=$row['id']?>">
+									selected="selected" value="<?=$row['id']?>">
 								<?php }else {?>
 								value="<?=$row['id']?>">
 								<?php
-}
-echo $row ['name'];
-?>
+								}
+								echo $row ['name'];
+								?>
 							</option>
 
 							<?php endforeach ?>
 							</option>
-						</select><span id="supportedbyidError" style="color: red"></span>
+							</select><span id="supportedbyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -141,8 +153,8 @@ echo $row ['name'];
 					<div class="form-group required">
 						<label class="control-label">Phone</label>
 						<div class="controls">
-								<input type="tel" name="phone" maxlength="10" placeholder="phone" 
-								onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+							<input type="tel" name="phone" maxlength="10" placeholder="phone"
+								onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 								value="<?php echo !empty($phone)?$phone:'';?>" required>
 						</div>
 					</div>
@@ -150,12 +162,12 @@ echo $row ['name'];
 
 
 				<div class="control-group">
-				<div class="form-group required">
-					<label class="control-label">Email</label>
-					<div class="controls">
-						<input name="email" type="email" placeholder="Email"
-							value="<?php echo !empty($email)?$email:'';?>" required>
-</div>
+					<div class="form-group required">
+						<label class="control-label">Email</label>
+						<div class="controls">
+							<input name="email" type="email" placeholder="Email"
+								value="<?php echo !empty($email)?$email:'';?>" required>
+						</div>
 					</div>
 				</div>
 
@@ -185,7 +197,7 @@ echo $row ['name'];
 				</div>
 
 				<div class="form-actions">
-					<button type="submit" class="btn btn-success">Update</button>
+					<button type="submit" class="btn btn-success" id="update">Update</button>
 					<a class="btn" href="index.php">Back</a>
 				</div>
 			</form>

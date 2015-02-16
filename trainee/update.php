@@ -126,7 +126,7 @@ function validate(){
 			</div>
 
 			<form class="form-horizontal"
-				action="./trainee/update.php?id=<?php echo $id?>" method="post">
+				action="./trainee/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()">
 				<div class="form-actions1">
 					<span id="createMessage" style="color: red; display: none">Dulpicate
 						Entry Is Not Allowed</span>

@@ -68,6 +68,21 @@ else {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var assignedtoid =document.getElementById("assignedtoid").value;
+	
+	if(assignedtoid==0){
+		
+		document.getElementById("assignedtoidError").innerHTML="Employee Name Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+}
+</script>
 </head>
 
 <body>
@@ -79,7 +94,7 @@ else {
 			</div>
 
 			<form class="form-horizontal"
-				action="./todo/update.php?id=<?php echo $id?>" method="post">
+				action="./todo/update.php?id=<?php echo $id?>" method="post"onsubmit="return validate()">
 				<div class="control-group">
 					<label class="control-label">Category</label>
 					<div class="controls">
@@ -122,8 +137,8 @@ else {
 				<div class="form-group required">
 					<label class="control-label">Employee Name</label>
 					<div class="controls">
-						<select name="assignedto">
-							<option value="0">Select</option>
+						<select name="assignedto" id="assignedtoid">
+							<option value="">Select</option>
 							<?php foreach ($selecteddata as $row): ?>
 							<option <?php if($row['id'] == $assignedto) {  ?>
 								selected="selected" value="<?=$row['id']?>">
@@ -139,7 +154,7 @@ else {
 							</option>
 
 							<?php endforeach ?>
-						</select>
+						</select><span id="assignedtoidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

@@ -102,19 +102,11 @@ function validate(){
 								<option <?php if($row['id'] == $interviewid) {  ?>
 									selected="selected" value="<?=$row['id']?>" requried>
 									<?php
-								}
-								else {
-								?>
-									value="
-									<?=$row['id']?>
-									" >
+								}else { ?>
+								value="<?=$row['id']?>" >
 									<?php
-							}
-							echo $row ['interviewer'];
-							?>
-								</option>
-
-								<?php endforeach ?>
+							}echo $row ['interviewer'];?>
+							</option><?php endforeach ?>
 							</select><span id="interviewidError" style="color: red"></span>
 						</div>
 					</div>

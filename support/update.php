@@ -77,6 +77,26 @@ else {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+function validate(){
+	var supportedbyid =document.getElementById("supportedbyid").value;
+	var traineeid =document.getElementById("traineeid").value;
+	if(supportedbyid==0 ){
+		
+		document.getElementById("supportedbyidError").innerHTML="Employee Name Is Required";
+		return false;
+	}
+	else if(traineeid==0){
+		document.getElementById("traineeidError").innerHTML="Trainee Name Is Required";
+		return false;
+	} 
+	else{
+		location.reload();
+		return true;
+	}
+}
+</script>
 </head>
 
 <body>
@@ -88,7 +108,7 @@ else {
 			</div>
 
 			<form class="form-horizontal"
-				action="./support/update.php?id=<?php echo $id?>" method="post">
+				action="./support/update.php?id=<?php echo $id?>" method="post" onsubmit="return validate()">
 
 
 
@@ -96,7 +116,7 @@ else {
 				<div class="form-group required">
 					<label class="control-label">Employee Name</label>
 					<div class="controls">
-						<select name="supportedby" type="text">
+						<select name="supportedby" id="supportedbyid">
 							<option value="0">Select</option>
 							<?php foreach ($employeeData as $row): ?>
 							<option <?php if($row['id'] == $supportedby) {  ?>
@@ -113,7 +133,7 @@ else {
 							</option>
 
 							<?php endforeach ?>
-						</select>
+						</select><span id="supportedbyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -123,7 +143,7 @@ else {
 				<div class="form-group required">
 					<label class="control-label">Trainee Name</label>
 					<div class="controls">
-						<select name="traineeid" type="text">
+						<select name="traineeid" id="traineeid">
 							<option value="0">Select</option>
 							<?php foreach ($traineeData as $row): ?>
 							<option <?php if($row['id'] == $traineeid) {  ?>
@@ -140,7 +160,7 @@ else {
 							</option>
 
 							<?php endforeach ?>
-						</select>
+						</select><span id="traineeidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -170,9 +190,10 @@ else {
 					<label class="control-label">Allotted Time</label>
 					<div class="controls">
 						<select name="allottedtime" type="text">
+						<option value="">Select</option>
 							<?php foreach ($timeConstants as $timeConstant): ?>
 							<option <?php if($timeConstant == $allottedtime) {?>
-								selected="selected" value=" <?=$timeConstant?>">
+								selected="selected" value="<?=$timeConstant?>">
 								<?php }else {?>
 								value="<?=$timeConstant?>">
 								<?php }

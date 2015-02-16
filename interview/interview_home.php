@@ -12,8 +12,9 @@
 					<a href="./Excels/interviewexcel.php" class="btn btn-default btn-lg " role="button" ><i class="fa fa-file-excel-o"></i> export</a>
 				</p>
 				
-					search:<input id="filter" type="text" /> 
-			<table data-filter="#filter" class="footable">
+					Search:<input id="filter" type="text" /> <label id="DeletedRecord"
+				style="display: none"> Record Deleted Successfully </label>
+			<table data-filter="#filter" class="footable" id="myTable">
 		              <thead>
 		                <tr>
 		                  <th>Employee Name</th>
@@ -23,16 +24,18 @@
 		                  <th> Date</th>
 		                  <th>Time</th>
 		                  <th>Status</th>
-		                  <!-- <th>Description</th>
-		                   --><th  data-sort-ignore="true">Actions</th>
+		                  <!-- <th>Description</th>-->
+		                  <th data-sort-ignore="true">Actions</th>
 		               </tr>
 		              </thead>
 		              <tbody>
 		              <?php 
+		              header("Cache-Control: no-cache");
 		               $path = $_SERVER['DOCUMENT_ROOT'];
    					   $path .= "/layout/connection/GlobalCrud.php";
    					   include_once($path);
 					   $data = GlobalCrud::getData('interviewSelect');
+					   $count = 0;
 					   foreach ($data as $row) {
 						   		echo '<tr>';
 						   		echo '<td>'. $row['employee_name'] . '</td>';
@@ -46,14 +49,15 @@
 							   	echo '<td>';
 							   	echo '<a href="#" data-toggle="tooltip" title="'. $row['description'] . '"> <i class="fa fa-caret-square-o-up"></i></a>';
 							   	echo '<a href="?content=24&id='.$row['id'].'"> <i class="fa fa-pencil-square"></i></a>';
-							   	echo '<a href="?content=22&id='.$row['id'].'"  onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
-							   
+							   //	echo '<a href="?content=22&id='.$row['id'].'"  onclick="return confirm(\'Are you sure you want to delete?\')" > <i class="fa fa-trash"></i></a>';//'?content=16&id='.$row['id'].'
+							   	echo '<a href="#"  onClick=delFromHome('.$row['id'].',"interviewDelete")  > <i class="fa fa-trash"></i></a>';
 							   	//echo '<i class="fa fa-info-circle">'. $row['description'] . '</i>';
 							   	echo '</td>';
 							   	echo '</tr>';
+							   	$count++;
 					   }
 
-					   function deleteRecord($idValue) {
+					   /* function deleteRecord($idValue) {
 									$sql = "interviewDelete";
 									$sqlValues = $idValue;
 									GlobalCrud::delete($sql,$sqlValues);
@@ -62,8 +66,12 @@
 
 						  if (isset($_GET['id'])) {
 						    deleteRecord($_GET['id']);
-						  }
+						  } */
 					  ?>
+					  
+					  
+					  <br> Total Number Of Interviews:
+					<?php echo $count;?>
 				      </tbody>
 	            </table>
 	            <label id="NoRowsAvailable" style="display: none">  No result matched for search criteria	</label>

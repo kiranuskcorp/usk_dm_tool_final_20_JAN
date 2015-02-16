@@ -88,7 +88,7 @@ function validate(){
 					<label class="control-label">End Cilent</label>
 					<div class="controls">
 						<select name="interviewid" id="interviewid">
-							<option value="0">Select</option>
+							<option value="">Select</option>
 							<?php foreach ($endClientData as $row): ?>
 							<option value="<?=$row['id']?>"requried >
 								<?php	echo $row ['interviewer'];?>

@@ -14,7 +14,7 @@ if ( !empty($_POST)) {
 	// keep track post values
 
 	//traineeid assistedby clientid interviewer time status date  description
-
+//traineeid assistedbyid clientid interviewer time date status description
 	$traineeid = $_POST['traineeid'];
 	$assistedby = $_POST['assistedby'];
 	$clientid=$_POST['clientid'];
@@ -67,6 +67,26 @@ if ( !empty($_POST)) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+function validate(){
+	var traineeid =document.getElementById("traineeid").value;
+	var assistedbyid =document.getElementById("assistedbyid").value;
+	if(traineeid==0 ){
+		
+		document.getElementById("traineeidError").innerHTML="Trainee Name Is Required";
+		return false;
+	}
+	else if(assistedbyid==0){
+		document.getElementById("assistedbyidError").innerHTML="Employee Name Is Required";
+		return false;
+	} 
+	else{
+		location.reload();
+		return true;
+	}
+}
+</script>
 </head>
 
 <body>
@@ -78,21 +98,21 @@ if ( !empty($_POST)) {
 			</div>
 
 			<form class="form-horizontal" action="./interview/create.php"
-				method="post">
+				method="post" onsubmit="return validate()">
 
 
 				<div class="control-group">
 					<div class="form-group required">
 						<label class="control-label">Trainee Name</label>
 						<div class="controls">
-							<select name="traineeid" type="text" required>
+							<select name="traineeid" id="traineeid">
 								<option value="0">Select</option>
 								<?php foreach ($traineeData as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-							</select>
+							</select><span id="traineeidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -101,7 +121,7 @@ if ( !empty($_POST)) {
 				<div class="form-group required">
 					<label class="control-label">Assisted By</label>
 					<div class="controls">
-						<select name="assistedby" type="text">
+						<select name="assistedby" id="assistedbyid">
 							<option value="0">Select</option>
 							<?php foreach ($employeeData as $row): ?>
 							<option value="<?=$row['id']?>">
@@ -109,6 +129,7 @@ if ( !empty($_POST)) {
 								<?php endforeach ?>
 							</option>
 						</select>
+						<span id="assistedbyidError" style="color: red"></span>
 					</div>
 					</div>
 				</div>
@@ -205,6 +226,6 @@ if ( !empty($_POST)) {
 		</div>
 
 	</div>
-	<!-- /container -->
 </body>
 </html>
+	

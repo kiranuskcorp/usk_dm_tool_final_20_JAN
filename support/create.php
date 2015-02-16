@@ -79,6 +79,29 @@ if ( !empty($_POST)) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var supportedbyid =document.getElementById("supportedbyid").value;
+	var traineeid =document.getElementById("traineeid").value;
+	
+	if(supportedbyid==0){
+		
+		document.getElementById("supportedbyidError").innerHTML="Employee name Is Required";
+		return false;
+	}
+	else if(traineeid==0){
+		
+		document.getElementById("traineeidError").innerHTML="trainee name Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+
+
+}
+</script>
 </head>
 
 <body>
@@ -90,20 +113,20 @@ if ( !empty($_POST)) {
 			</div>
 
 			<form class="form-horizontal" action="./support/create.php"
-				method="post">
+				method="post" onsubmit="return validate()">
 
 				<div class="control-group">
 					<div class="form-group required">
 						<label class="control-label">Employee Name</label>
 						<div class="controls">
-							<select name="supportedby" type="text">
+							<select name="supportedby" id="supportedbyid">
 								<option value="0">Select</option>
 								<?php foreach ($employeeData as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-							</select>
+							</select><span id="supportedbyidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -112,14 +135,14 @@ if ( !empty($_POST)) {
 					<div class="form-group required">
 						<label class="control-label">Trainee Name</label>
 						<div class="controls">
-							<select name="traineeid" type="text">
+							<select name="traineeid" id="traineeid">
 								<option value="0">Select</option>
 								<?php foreach ($traineeData as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-							</select>
+							</select><span id="traineeidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>
@@ -147,10 +170,10 @@ if ( !empty($_POST)) {
 					<label class="control-label">Allotted Time</label>
 					<div class="controls">
 						<select name="allottedtime" type="time">
-							<option value="0">Select</option>
+							<option value="">Select</option>
 							<?php foreach ($timeConstants as $timeConstant): ?>
 							<option value="<?=$timeConstant?>">
-								<?php	echo $timeConstant;?>
+								<?php echo $timeConstant;?>
 								<?php endforeach ?>
 							</option>
 						</select>
@@ -181,7 +204,7 @@ if ( !empty($_POST)) {
 					<label class="control-label">Status</label>
 					<div class="controls">
 						<select name="status" type="text">
-							<option value="0">Select</option>
+							<option value="">Select</option>
 							<?php foreach ($supportConstants as $supportConstant): ?>
 							<option value="<?=$supportConstant?>">
 								<?php	echo $supportConstant;?>

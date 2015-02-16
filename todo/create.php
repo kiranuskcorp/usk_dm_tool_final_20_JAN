@@ -60,6 +60,24 @@ if ( !empty($_POST)) {
 <meta charset="utf-8">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function validate(){
+	var assignedtoid =document.getElementById("assignedtoid").value;
+	
+	if(assignedtoid==0){
+		
+		document.getElementById("assignedtoidError").innerHTML="Employee Name Is Required";
+		return false;
+	}
+	else{
+		location.reload();
+		return true;
+	}
+}
+
+
+</script>
+
 </head>
 
 <body>
@@ -71,7 +89,7 @@ if ( !empty($_POST)) {
 			</div>
 
 			<form class="form-horizontal" action="./todo/create.php"
-				method="post">
+				method="post" onsubmit="return validate()">
 				<div class="control-group">
 					<label class="control-label">Category</label>
 					<div class="controls">
@@ -104,14 +122,14 @@ if ( !empty($_POST)) {
 					<div class="form-group required">
 						<label class="control-label">Employee Name</label>
 						<div class="controls">
-							<select name="assignedto" type="text">
-								<option value="0">Select</option>
+							<select name="assignedto" id="assignedtoid">
+								<option value="">Select</option>
 								<?php foreach ($data as $row): ?>
 								<option value="<?=$row['id']?>">
 									<?php	echo $row ['name'];?>
 									<?php endforeach ?>
 								</option>
-							</select>
+							</select><span id="assignedtoidError" style="color: red"></span>
 						</div>
 					</div>
 				</div>

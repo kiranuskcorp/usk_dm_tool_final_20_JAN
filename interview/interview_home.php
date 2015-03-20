@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
 
+
+</head>
 <body>
     <div class="container-fluid">
-		<div class="row">
-    			<h3>Interview</h3>
-    		</div>
+		
 			<div class="row">
 				<p>
+				<b class="labelData">Interview</b>
 					<a href="?content=23" class = "btn btn-default"><i class="fa fa-plus-square"></i> Add</a>
 					<a href="./Excels/interviewexcel.php" class="btn btn-default btn-lg " role="button" ><i class="fa fa-file-excel-o"></i> export</a>
 				</p>
@@ -19,6 +21,7 @@
 		                <tr>
 		                  <th>Employee Name</th>
 		                  <th>Trainee Name</th>
+		                  <th>Technology</th>
 		                  <th>Client Name</th>
 		                  <th>End Client</th>
 		                  <th> Date</th>
@@ -40,6 +43,7 @@
 						   		echo '<tr>';
 						   		echo '<td>'. $row['employee_name'] . '</td>';
 						   		echo '<td>'. $row['trainee_name'] . '</td>';
+						   		echo '<td>'. $row['technology'] . '</td>';
 							   	echo '<td>'. $row['client_name'] . '</td>';
 							   	echo '<td>'. $row['interviewer'] . '</td>';
 							   	echo '<td>'. $row['date'] . '</td>';
@@ -57,16 +61,7 @@
 							   	$count++;
 					   }
 
-					   /* function deleteRecord($idValue) {
-									$sql = "interviewDelete";
-									$sqlValues = $idValue;
-									GlobalCrud::delete($sql,$sqlValues);
-									header("Location:./?content=22");
-								}
-
-						  if (isset($_GET['id'])) {
-						    deleteRecord($_GET['id']);
-						  } */
+					 
 					  ?>
 					  
 					  

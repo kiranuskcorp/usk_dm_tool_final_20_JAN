@@ -4,11 +4,10 @@
 
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<h3>Support</h3>
-		</div>
+		
 		<div class="row">
 			<p>
+			<b class="labelData">Support</b>
 				<a href="?content=41" class="btn btn-default"><i
 					class="fa fa-plus-square"></i>&nbsp;Add</a> <a
 					href="./Excels/supportexcel.php" class="btn btn-default btn-lg "
@@ -80,7 +79,7 @@
 						  } */
 						  ?>
 						  
-						  <br> Total Number Of Interviews:
+						  <br> Total Number Of Supports:
 					<?php echo $count;?>
 				</tbody>
 			</table>

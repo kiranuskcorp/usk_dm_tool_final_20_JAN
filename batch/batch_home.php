@@ -7,14 +7,13 @@
 
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<h3>Batch</h3>
-		</div>
+		
 		<div class="row">
 			<p>
+			<b class="labelData">Batch</b>
 				<a href="?content=11" class="btn btn-default"><i
 					class="fa fa-plus-square"></i>&nbsp;Add</a> <a
-					href="./Excels/batchexcel.php" class="btn btn-default btn-lg "
+					href="./Excels/batchexcel.php?operation=''" class="btn btn-default btn-lg "
 					role="button"><i class="fa fa-file-excel-o"></i> export</a>
 			</p>
 			Search:<input id="filter" type="text" /> <label id="DeletedRecord" style="display: none">Record Deleted successfully!!</label>
@@ -42,6 +41,7 @@
 					$path = $_SERVER['DOCUMENT_ROOT'];
 					$path .= "/layout/connection/GlobalCrud.php";
 					include_once($path);
+					date_default_timezone_set("Asia/Kolkata");
 					$delete="batchDelete";
 					$count=0;
 					$data = GlobalCrud::getData('batchSelect');
@@ -57,7 +57,7 @@
 						
 					
 						echo '<tr>';
-						echo '<td>'. $row['id'] . '</td>';
+						echo '<td><a href="?content=37&BatchId='.$row['id'].'" onclick="popUp('. $row['id'] . ')">'. $row['id'] . '</a></td>';
 						echo '<td>'. $row['technology_name'] . '</td>';
 						echo '<td>'. $row['trainer_name'] . '</td>';
 						echo '<td>'. $row['start_date'] . '</td>';

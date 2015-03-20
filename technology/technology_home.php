@@ -10,11 +10,10 @@
 </script></head>
 <body>
     <div  class="container-fluid">
-		<div class="row">
-    			<h3>Technology</h3>
-    		</div>
+		
 			<div class="row">
 				<p>
+				<b class="labelData">Technology</b>
 					<a href="?content=2" class = "btn btn-default"><i class="fa fa-plus-square"></i>&nbsp;Add</a>
 					<a href="./Excels/technologyexcel.php" class="btn btn-default btn-lg " role="button" ><i class="fa fa-file-excel-o"></i> export</a>
 				</p>

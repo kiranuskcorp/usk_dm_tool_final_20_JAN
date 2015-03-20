@@ -2,7 +2,7 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
-
+date_default_timezone_set("Asia/Kolkata");
 if (! empty ( $_POST )) {
 	
 	// keep track post values
@@ -140,9 +140,9 @@ if (! empty ( $_POST )) {
 
 							<thead>
 								<tr>
-									<th class="text-center">Name</th>
-									<th class="text-center">Email</th>
-									<th class="text-center">Phone</th>
+									<th class="text-center"><label class="control-label">Name</label></th>
+									<th class="text-center"><label class="control-label">Email</label></th>
+									<th class="text-center"><label class="control-label">Phone</label></th>
 									<th class="text-center">Add/Remove</th>
 								</tr>
 							</thead>
@@ -151,12 +151,15 @@ if (! empty ( $_POST )) {
 									<td><input type="text" name='poc[]' placeholder='poc'
 										value="<?php echo !empty($poc)?$poc:'';?>"
 										class="form-control" required="required" /></td>
-									<td><input type="text" name='email[]' placeholder='email'
+									<td><input type="email" name='email[]' placeholder='email'
 										value="<?php echo !empty($email)?$email:'';?>"
 										class="form-control" required="required" /></td>
-									<td><input type="text" name='phone[]' placeholder='phone'
-										value="<?php echo !empty($phone)?$phone:'';?>"
-										class="form-control" required="required" /></td>
+									<td>
+
+									
+									<input type="text" name='phone[]' placeholder='phone' maxlength="15"
+										value="<?php echo !empty($phone)?$phone:'';?>" 
+										onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45'  class="form-control" required="required" /></td>
 										<td><a id="add_row">&nbsp;<i
 							class="fa fa-plus-square"></i></a></td>
 								</tr>

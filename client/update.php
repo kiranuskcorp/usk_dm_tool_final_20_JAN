@@ -2,7 +2,7 @@
 $path = $_SERVER ['DOCUMENT_ROOT'];
 $path .= "/layout/connection/GlobalCrud.php";
 include_once ($path);
-
+date_default_timezone_set("Asia/Kolkata");
 $id = null;
 if (! empty ( $_GET ['id'] )) {
 	$id = $_REQUEST ['id'];
@@ -167,8 +167,8 @@ else {
 							<thead>
 								<tr>
 									<th class="text-center">Name</th>
-									<th class="text-center">Mail</th>
-									<th class="text-center">Mobile</th>
+									<th class="text-center">Email</th>
+									<th class="text-center">Phone</th>
 									<th class="text-center">Add/Remove</th>
 								</tr>
 							</thead>
@@ -184,11 +184,11 @@ else {
 										type="text" name='poc[]' placeholder='poc'
 										value="<?php echo $row['poc']; ?>"  class="form-control"
 										required="required" /></td>
-									<td><input type="text" name='email[]' placeholder='email'
+									<td><input type="email" name='email[]' placeholder='email'
 										value="<?php echo $row['email']; ?>" class="form-control"
 										required="required" /></td>
 									<td><input type="text" name='phone[]' placeholder='phone'
-										value="<?php echo $row['phone']; ?>" class="form-control"
+										maxlength="15" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43 || event.charCode == 45'  value="<?php echo $row['phone']; ?>" class="form-control"
 										required="required" /></td>
 										<?php if($mainValue == 1){?>
 										<td><a id="add_row">&nbsp;<i

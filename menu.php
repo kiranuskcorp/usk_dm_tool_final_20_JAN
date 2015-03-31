@@ -12,3 +12,5 @@
 <li><a href="?content=19"><b>Tasks</b></a></li>
 <li><a href="?content=34"><b>Question</b></a></li>
 
+<li><a href="?content=50"><b>Reporting</b></a></li>
+

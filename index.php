@@ -11,15 +11,18 @@
 	type="text/css" />
 <link href="./css/foot/footable-0.1.css" rel="stylesheet"
 	type="text/css" />
+	
 <link href="./css/foot/footable.sortable-0.1.css" rel="stylesheet"
 	type="text/css" />
 
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"
 	type="text/javascript"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
 <script src="./js/foot/footable-0.1.js" type="text/javascript"></script>
 <script src="./js/foot/footable.sortable.js" type="text/javascript"></script>
 <script src="./js/foot/footable.filter.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(function() {
       $('table').footable(
@@ -30,6 +33,7 @@
     });
 
     $(document).ready(function(){
+        $('#dialog').hide();
         var i=1;
        $("#add_row").click(function(){
         $('#addr'+i).html("<td><input name='contactId[]' type='hidden' value='0'/><input name='poc[]' type='text' placeholder='poc' class='form-control input-md'  /> </td><td><input  name='email[]' type='email' placeholder='email'  class='form-control input-md'></td><td><input  name='phone[]' type='text' placeholder='phone' onkeypress='return event.charCode >= 48 &amp;&amp; event.charCode <= 57' class='form-control input-md'></td><td>&nbsp;<a  onClick='delRow(0)'><i class='fa fa-minus-square'></i></a></td>");
@@ -120,6 +124,39 @@
       	   
       }
 
+     function supportTracking() {
+        
+       	 var supportby = $("#supportTrackingSupportby").val(); 
+         var supportto = $("#supportTrackingSupportto").val();
+         var date = $("#supportTrackingDate").val();
+         var hours = $("#supportTrackingHours").val();
+         var description = $("#supportTrackingDescription").val();
+         var arrayValues = [supportby,supportto,date,hours,description];
+           	$.ajax({
+           		  url: '/layout/connection/GlobalCrud.php',
+           		  type: 'POST',
+           		  async: false,
+           		  data: {operation: "supportTracking", sql: "supportTrackerInsert",sqlValues : arrayValues },
+           		  success: function(response) {
+               		  
+
+           			  $("#AddRecord").css("display", "block");
+           			 setTimeout(function(){
+      				   $("#AddRecord").css("display", "none");
+      			      },5000);
+
+           		  return false;
+           		  },
+           		  error: function(e) {
+               	   return false;
+           		  }
+           		});
+   		
+       	   
+       }
+
+
+     
     function delFromHome(id,sqlCon)
     {
     	
@@ -147,20 +184,98 @@
     	
     }
 
+
+ 
+    	
+
+    
+    function emailalert(batch,trainer,email)
+    {
+        $("#dialog").dialog();
+      
+        if(batch == 'trainee'){
+        	var response = allAjaxCalls(batch,trainer,email,"getEmailcon");
+        	
+        	  var res =  response.split(',');
+    			 $('#from').val(res[0]);
+    			  $('#cc').val(res[1]);
+    			  $('#bcc').val($("#hiddenEmailValue").val());    
+    			  $('#subject').val(res[3]);
+    			  $('#body').val(res[4]);
+
+    			/*   var batchId = [];
+    			  batchId[0] = email;
+    			  var $response2 =  allAjaxCalls("traineeSelectByBatchId",batchId,email,"getAllRecordsBasedOnId");
+    			 	console.log($response2); */
+        	//GlobalCrud::getAllRecordsBasedOnId('traineeSelectByBatchId',array($_GET['BatchId']));
+        }
+        if(batch == 'batch'){
+        	  $('#to').val(email); 
+        	var response = allAjaxCalls(batch,trainer,email,"getEmailcon");
+        	  var res =  response.split(',');
+    			 $('#from').val(res[0]);
+    			 $('#cc').val(res[1]);
+    			 // $('#bcc').val(res[2]);    
+    			  $('#subject').val(res[3]);
+    			  $('#body').val(res[4]);
+        }
+     
+        
+    }
+
+    function allAjaxCalls(batch,trainer,email,method){
+		var returnResponse;
+    	 $.ajax({
+   		  url: '/layout/connection/GlobalCrud.php',
+   		  type: 'POST',
+   			async: false, 
+   		  data: {operation: "emailcon", sql:batch, sqlValues:trainer , method:method,body:''},
+   		  success: function(response) {
+   	   		 
+   			returnResponse = response;
+        		  },error: function(e){
+       			  console.log("error"+e);
+       		  }
+   		}); 
+    		return returnResponse; 
+    }
+
+    function sendEmail(){
+    	
+    	var toEmail  =$('#to').val();
+    	var subject =$('#subject').val();
+    	var body =$('#body').val();
+    	console.log(" "+body);
+    	 $.ajax({
+      		  url: '/layout/connection/GlobalCrud.php',
+      		  type: 'POST',
+      		 data: {operation: "emailsend", sql:toEmail, sqlValues:subject, body:body},
+     		  success: function(response) {
+     			 alert("Success");
+     			$("#dialog").hide();
+     		  },error : function(error){
+
+     			 alert("error");
+         		  }
+         	    	 }); 
+        }
+     
+
     
   </script>
 <style type="text/css">
 .mainHeader {
 	height: 100px;
 }
-#content{
-padding-top: 10px;
+
+#content {
+	padding-top: 10px;
 }
+
 #nav {
-width: 100%;
-	/* border : 1px solid black;  */ 
-	 background-color:  #45aed0; 
-	
+	width: 100%;
+	/* border : 1px solid black;  */
+	background-color: #45aed0;
 }
 
 .navigation {
@@ -170,13 +285,10 @@ width: 100%;
 }
 
 .navigation li a {
-	color : white;
+	color: white;
 	/* background-color: #45aed0; */
 	width: 100%;
 }
- /* .navigation li a:visited {
-	background-color: white;
-} */
 
 .navigation li a:hover {
 	background-color: black;
@@ -201,7 +313,7 @@ width: 100%;
 
 .left {
 	float: left;
-	
+
 	/* clear: left;
 	position: relative;
 	bottom: -50px; */
@@ -210,8 +322,8 @@ width: 100%;
 .right {
 	float: right;
 	padding-top: 40px;
-	 width: 60%;
-	 color: #45aed0;
+	width: 60%;
+	color: #45aed0;
 	/*clear: right; */
 }
 
@@ -221,17 +333,26 @@ width: 100%;
 	color: red;
 }
 
-.labelData{
-font-size: 25px;
-padding-top: 15px;
-color: #45aed0;
-
+#AddRecord {
+	text-align: center;
+	font-size: small;
+	color: green;
 }
 
+.labelData {
+	font-size: 25px;
+	padding-top: 15px;
+	color: #45aed0;
+}
+
+#dialog {
+	height: 500px;
+}
 </style>
 <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
 </head>
 <body>
+
 <?php
 error_reporting ( 0 );
 session_start ();
@@ -240,17 +361,67 @@ if (! empty ( $username )) {
 	?>
 
 
+<div id="dialog" style="width: 500px;">
 
+		<table class="table">
+
+
+			<tr>
+				<td><p>
+						From: <input type="text" id="from" value="">
+
+
+					</p></td>
+
+			</tr>
+			<tr>
+				<td><p>
+						To:- <input type="text" id="to" value="">
+					</p></td>
+
+			</tr>
+			<tr>
+				<td><p>
+						cc:- <input type="text" id="cc" value="">
+					</p></td>
+
+			</tr>
+			<tr>
+				<td><p>
+						Bcc:- <input type="text" id="bcc" value="">
+					</p></td>
+
+			</tr>
+			<tr>
+				<td>Subject <input type="text" id="subject" value=""></td>
+
+			</tr>
+			<tr>
+				<td><textarea id="body" rows="4" cols="23">
+				
+						</textarea></td>
+
+			</tr>
+			<tr>
+				<td><button onclick="sendEmail()">Send</button></td>
+
+			</tr>
+		</table>
+
+
+
+
+	</div>
 
 	<!-- Begin Wrapper -->
 	<div class="container-fluid">
 
 		<div class="mainHeader">
 			<ul class="li">
-			
-					<li class="left"><img src="./img/logo_blue.gif" /></li>
+
+				<li class="left"><img src="./img/logo_blue.gif" /></li>
 				<li class="right"><h1>Data Management Tool</h1></li>
-				
+
 			</ul>
 		</div>
 		<!-- Begin Header -->
@@ -258,8 +429,8 @@ if (! empty ( $username )) {
 		<!-- End Header -->
 		<!-- Begin Naviagtion -->
 
-		
-		
+
+
 		<div id="nav">
 			<div class="navigation">
 				<nav class="navbar navbar-default">
@@ -284,10 +455,7 @@ Welcome to <?php  // echo $_SESSION['username'];?><br> <a href="login.php"
 
 		<div id="content">
 			<?php
-	
-	// $username = $_SESSION['username'];
-	// if (!empty($username)){
-	
+
 	switch ($_GET ['content']) {
 		/* technology */
 		case 1 :
@@ -344,18 +512,6 @@ Welcome to <?php  // echo $_SESSION['username'];?><br> <a href="login.php"
 			include './employee/update.php';
 			break;
 		
-		/* Resume */
-		/*
-		 * case 16 :
-		 * include '/resume/resume_home.php';
-		 * break;
-		 * case 17 :
-		 * include '/resume/create.php';
-		 * break;
-		 * case 18 :
-		 * include '/resume/update.php';
-		 * break;
-		 */
 		
 		/* TODO */
 		case 19 :
@@ -390,32 +546,7 @@ Welcome to <?php  // echo $_SESSION['username'];?><br> <a href="login.php"
 			include './course/update.php';
 			break;
 		
-		/* recording */
-		/*
-		 * case 28 :
-		 * include '/recording/recording_home.php';
-		 * break;
-		 * case 29 :
-		 * include '/recording/create.php';
-		 * break;
-		 * case 30 :
-		 * include '/recording/update.php';
-		 * break;
-		 */
-		
-		/* Pay slip */
-		/*
-		 * case 31 :
-		 * include '/payslip/payslip_home.php';
-		 * break;
-		 * case 32 :
-		 * include '/payslip/create.php';
-		 * break;
-		 * case 33 :
-		 * include '/payslip/update.php';
-		 * break;
-		 */
-		
+	
 		/* question */
 		case 34 :
 			include './question/question_home.php';
@@ -438,6 +569,7 @@ Welcome to <?php  // echo $_SESSION['username'];?><br> <a href="login.php"
 			include './trainee/update.php';
 			break;
 		
+			
 		/* Support */
 		case 40 :
 			include './support/support_home.php';
@@ -449,28 +581,21 @@ Welcome to <?php  // echo $_SESSION['username'];?><br> <a href="login.php"
 			include './support/update.php';
 			break;
 		
-			case 43 :
-				include './dashboard/dashboard_home.php';
+		case 43 :
+			include './dashboard/dashboard.php';
+			break;
+	
+			/* Support tracker */
+			case 47 :
+				include './supporttracker/supporttracker_home.php';
 				break;
-		/* client_contact */
-		/*
-		 * case 43 :
-		 * include './contact/contact_home.php';
-		 * break;
-		 * case 44 :
-		 * include './contact/create.php';
-		 * break;
-		 * case 45 :
-		 * include './contact/update.php';
-		 * break;
-		 *
-		 * case 46 :
-		 * include './Excels/excels.php';
-		 * break;
-		 */
-		
+				
+				case 100 :
+					include './supporttracker/default_home.php.php';
+					break;
+				
 		default :
-			include './dashboard/dashboard_home.php';
+			include './dashboard/dashboard.php';
 			break;
 	}
 } else {

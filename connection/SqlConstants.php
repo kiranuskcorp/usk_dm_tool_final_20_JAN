@@ -1,6 +1,17 @@
 <?php
 class SqlConstants {
 	static $allSelect = array (
+			
+			
+			"supportTrackerSelect" => "SELECT s.*,te.name as trainee_name,e.name as employee_name FROM support_tracker s,trainee te,employee e WHERE s.support_by=e.id AND s.support_to=te.id order by s.id desc",
+			"supportTrackerInsert" => "INSERT INTO support_tracker(support_by, support_to, date,hours, description) VALUES (?,?,?,?,?)",
+			"supportTrackerDelete" => "UPDATE technology set  active_flag=1 WHERE id = ?",
+			"supportTrackerAdd" => "UPDATE technology set  active_flag=1 WHERE id = ?",
+			"supportTrackerUpdate" => "UPDATE technology set name = ?,  updated_date =?, description =? WHERE id = ?",
+			"supportTrackerSelectById" => "SELECT * FROM technology where id = ?",
+				
+			
+			
 			"technologySelect" => "SELECT * FROM technology where active_flag=0 ORDER BY name asc",
 			"technologyInsert" => "INSERT INTO technology (name,created_date,description) values(?, ?,?)",
 			"technologyDelete" => "UPDATE technology set  active_flag=1 WHERE id = ?",
@@ -55,7 +66,7 @@ class SqlConstants {
 			"courseUpdate" => "UPDATE course set technology_id=?,name=?,est_hrs=?,updated_date=?,description=? WHERE id = ?",
 			"courseSelectById" => "SELECT * FROM course where id = ?",
 			
-			"batchSelect" => "SELECT b.*, t.name as technology_name, tr.name as trainer_name FROM batch b, technology t, trainer tr WHERE b.active_flag=0 AND b.technology_id = t.id and b.trainer_id = tr.id order by b.id desc",
+			"batchSelect" => "SELECT b.*, t.name as technology_name, tr.name as trainer_name,tr.email as 'trainerEmail' FROM batch b, technology t, trainer tr WHERE b.active_flag=0 AND b.technology_id = t.id and b.trainer_id = tr.id order by b.id desc",
 			"batchInsert" => "INSERT INTO batch (technology_id,trainer_id,start_date,end_date,duration,status,created_date,description,time) values( ?,?,?,?,?,?,?,?,?)",
 			"batchDelete" => "UPDATE batch set active_flag=1 WHERE id = ?",
 			"batchUpdate" => "UPDATE batch set  technology_id=?,trainer_id=?,start_date=?,end_date=?,duration=?,status=?,updated_date=?,description=?,time=? WHERE id = ?",
@@ -113,6 +124,17 @@ class SqlConstants {
 			"interviewconstants" => "1 - Not Started,2 - In Progress,3 - Cleared,4 - Rejected,5 - Payment Pending,6 - Closed,7 - Cancelled",
 			"timeConstants" => "00:00,00:30,01:00,01:30,02:00,02:30,03:00,03:30,04:00,04:30,05:00,05:30,06:00,06:30,07:00,07:30,08:00,08:30,09:00,09:30,10:00,10:30,11:00,11:30,12:00,12:30,13:00,13:30,14:00,14:30,15:00,15:30,16:00,16:30,17:00,17:30,18:00,18:30,19:00,19:30,20:00,20:30,20:45,21:00,21:30,22:00,22:30,23:00,23:30",
 			"feeStatusConstant" => "1 - Not Started,2 - In Progress,3 - Cleared,4 - Rejected,5 - Payment Pending,6 - Closed,7 - Cancelled" 
+	);
+	static $allSubjects = array (
+			
+			"batchSubject" => "Greetings on succesful completion of training",
+			"batchBody" => "We have successful completed <Course Name> Training on <End Date>. The following is the list of the candidates who had completed their training with us. You can start Marketing For them.
+									Please feel free to contact us for any kind of information.",
+			"batchCC" => " ",
+			"batchBCC" => " ",
+			"batchfromConstants" => "prasad.uskcorp@gmail.com",
+			"toConstants" => "sreenath1985@gmail.com",
+		
 	);
 }
 ?>
